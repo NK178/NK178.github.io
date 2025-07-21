@@ -1,0 +1,377 @@
+* {margin: 0px;}
+
+
+/* ///////////////////////////////  NAV BAR ///////////////////////////////////// */
+#hamBtn{display:none;}
+
+/*to unhide menu items*/
+.menuShow{display:block !important;}
+
+/* For button menu transition */
+#navbar.expand {width: 30%;}
+
+/* set fixed height width use da RWD to adjust  */
+#navbar { 
+    /* background-color: blue; */
+    text-align: center; 
+    width: 100%; 
+    top: 10px; 
+    /* set this z index to not get covered by da videos */
+    z-index: 1000;
+    position: sticky; 
+    transition: width 1.3s;
+}
+#navbar > ul {
+    width: 875px;
+
+    /* width: 775px; */
+    background-color: peachpuff;
+    margin: 0 auto; /* center ul  */
+    border-radius: 25px;    
+    padding: 0px;
+}
+#navbar > ul li {
+    display: inline-block; 
+    margin: 0 5px;
+}
+#navbar ul li button {
+    width: 120px;
+    margin: 5px 2px;
+    padding: 7px;
+    color: red;
+    background-color: papayawhip;
+    border: 2px papayawhip solid;
+    border-radius: 15px;
+    font-size: 1.1em;
+}
+
+
+
+
+/* //////////////////////////////////// TEMPLATES  */
+
+
+.page{width:100%;border:2px solid black}
+
+/* grid template to use */
+.contentGrid {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr);
+}
+/* for ease of use when using content grid class */
+.colcenter {grid-column: 2;}
+.colleft {grid-column: 1;}
+.colright {grid-column: 3;}
+
+/* flex template to use */
+.contentFlex{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.contentInline{
+    display: inline;
+    width: 100%;
+}
+
+.flexcenter{
+    flex: 100%; 
+    justify-self: center;
+}
+
+.flexportion{
+    flex: 1;
+    justify-self: center;
+}
+
+.responsiveImg{
+    max-width: 100%;
+    height: auto;
+}
+
+.responsiveVid {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.responsiveIframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*      ////////////////////////////  HISTORY OF DRUMS  /////////////////////////              */
+/* Early origins and Troubled Times  */
+#page1{background:red; text-align:center;}
+#historyPart1 h2, #historyPart2 h2{grid-row: 1; padding-top: 20px;}
+#historyPart1 figure {grid-row: 1;}
+#historyPart2 p:nth-of-type(1), #historyPart2 figure:nth-of-type(1),#historyPart2 figure:nth-of-type(2){grid-row: 2;}
+#historyPart2 p:nth-of-type(2), #historyPart2 figure:nth-of-type(3),#historyPart2 figure:nth-of-type(4){grid-row: 3;}
+
+/* The present  */
+#historyPart4 figure:nth-of-type(1), #historyPart4 p, #historyPart4 div{flex: 1}
+
+/*      //////////////////////////// PARTS OF A DRUM KIT  /////////////////////////              */
+#page2{background:green; text-align:center;}
+#drumkitPart5 h3, #drumkitPart4 h3{text-decoration: underline;}
+/* Because the image is beside a video, the image has to follow the same aspect ratio else video will break */
+#drumkitPart4 .responsiveImg{aspect-ratio: 16/9; object-fit: contain;}
+
+/*      //////////////////////////// MUSIC THEORY  /////////////////////////              */
+
+#page3{background:blue}
+#page3 h2 {text-align: center;}
+/* Video about time signatures */
+#theoryPart2 > div {margin-left: 300px; margin-right: 300px; margin-bottom: 200px;}
+
+/*      /////////////////////////////////////// MUSIC GENRES ////////////////////////////////////////              */
+#page4{background:yellow}
+#page4 h2 {text-align: center;}
+/* All videos side by side in page 4 */
+#page4 .flexportion.responsiveVid{padding-top: 28.125% !important;  /* now ratio halfed cos 2 images next to each other*/ }
+
+/* //////////////////////////////////////////////// EXTRAS  PAGE ////////////////////////////// */
+#page5 {background: orange;}
+#newsletter h2{text-align: center; font-size: 2em;}
+#newsletter>p  {text-align: center; font-size: 1.4em; }
+#newsletterBtn {display:block; margin: 0 auto; padding: 15px; font-size: 1.3em;}
+#newsletterform>p {text-decoration: underline;}
+#newsletterform {
+    text-align: center;
+    display: none;
+    margin: 0 auto; 
+    font-size: 1.4em;
+}
+#newsletterform label {
+    display: inline-block;
+    margin: 5px 0;
+}
+#submitformBtn {
+    margin: 0 auto; 
+    display: none;
+    padding: 15px; 
+    font-size: 1.3em;
+}
+
+
+/* /////////////////////////////////////////////// TAIKO GAME ////////////////////////  */
+#theoryPart5{
+    display: block;
+    position: relative;
+    width:100%;
+    height: 200px;
+    background-color: burlywood;
+}
+#taikoTarget{
+    position: absolute;
+    /* dont forget to set */
+    top: 0px;
+    left: 0px;
+    width: 100px; 
+    height: 100px;
+    border: 4px black solid; 
+    border-radius: 50%;
+}
+.taikoCircle{
+    position: absolute;
+    width: 100px; 
+    height: 100px;
+    border: 2px lightgrey solid; 
+    border-radius: 50%;
+}
+
+/* hit marker images */
+
+.taikoAnim{
+	background: url('images/taikoSpriteSheet.png') no-repeat;
+    animation: taikoFrames 5s;
+}
+
+/* Animation  */
+@keyframes taikoFrames{
+    0%{
+        background-position: -297px -45px;
+        width: 111px;
+        height: 80px;
+    }
+    10%{
+        background-position: -147px -44px;
+        width: 112px;
+        height: 76px;
+    }
+    20%{
+        background-position: -302px -198px;
+        width: 105px;
+        height: 74px;
+    }
+    30%{
+        background-position: -163px -195px;
+        width: 87px;
+        height: 77px;
+    }
+    40%{
+        background-position: -170px -342px;
+        width: 71px;
+        height: 80px;
+    }
+    50%{
+        background-position: -183px -493px;
+        width: 98px;
+        height: 78px;
+    }
+    60%{
+        background-position: -24px -43px;
+        width: 98px;
+        height: 79px;
+    }
+    70%{
+        background-position: -41px -193px;
+        width: 60px;
+        height: 80px;
+    }
+    80%{
+        background-position: -10px -347px;
+        width: 91px;
+        height: 76px;
+    }
+    90%{
+        background-position: 0 -497px;
+        width: 104px;
+        height: 75px;
+    }
+    100%{
+        background-position: -147px -44px;
+        width: 112px;
+        height: 76px;
+    }
+}
+
+/* General */
+h1, h2 {text-decoration: underline;}
+
+
+/* ball */
+#ball {
+    background: cyan;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width:800px){
+
+    /* Testing  */
+    body {background-color:red;}
+    
+    /* NAV BAR  */
+    /* make the nav bar position overlay?? */
+    #navbar {
+        top: 0px;
+        position: fixed; 
+        height: 100%;
+        width: 10%;
+    }
+    #navbar ul{
+        display: none;
+        width: 100%;
+        /* height: 200px; */
+        height: 100%;
+        position: relative;
+        background-color: peachpuff;
+        border-radius: 0px;
+        margin: 0;
+    }   
+    #navbar ul li button {
+        font-size: 1.5em;
+        width: 100%;
+        display: block;
+        border-radius: 0px;
+        background-color: papayawhip;
+    }
+    #navbar > ul li {
+        padding: 10px;
+        margin: auto 2px;
+        display: block;
+        background-color: papayawhip;
+        border: 5px rgb(228, 195, 141) solid;
+    }
+    #hamBtn{
+        font-size: 2em;
+        display:block; 
+        width: 100%;
+    }
+
+    /* #navbar {
+        top: 0px;
+        position: fixed; 
+        height: 100%;
+        width: 30%;
+        background-color: blueviolet;
+    }
+    #navbar ul{
+        display: none;
+        width: 100%;
+        height: 200px;
+        position: relative;
+        background-color: transparent;  
+        background-color: peachpuff;
+    }   
+    #navbar ul li button {
+        width: 100%;
+        display: block;
+    }
+    #navbar > ul li {
+        margin: auto 5px;
+        display: block;
+    } */
+
+
+
+}
+
+
+
+
+
+/* /////////////////////////////////////////////////// TESTING /////////////////////////////////// */
+#testingPage3 {
+    background-color: red;
+}
+
+
+#sprite {
+	background: url('images/testmerge3.png'); 
+    background-repeat:  no-repeat;
+
+}
+
+
+.sprite1{
+    background-position: -96px -60px;
+	width: 818px;
+	height: 640px;
+}
+
+
+.sprite2 {
+	background-position: -1078px -21px;
+	width: 740px;
+	height: 733px;
+}
+
+.sprite3 {
+	background-position: -1872px -39px;
+	width: 624px;
+	height: 710px;
+}
