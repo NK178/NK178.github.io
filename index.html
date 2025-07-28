@@ -2,7 +2,13 @@
 <html lang="EN">
     <head> 
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <!-- <meta name="viewport" content="width=device-width, intial-scale=1.0"> -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="manifest" href="manifest.json" /> <!--for android-->
+
         <title> Home </title>
         <link href="style.css" type="text/css" rel="stylesheet"/> 
         <script src="main.js" defer> </script>
@@ -20,7 +26,7 @@
             <!-- &#9776 DISPLAY THIS UNICODE WHEN IN BUTTON MODE  -->
             <button id="hamBtn">&#9776;</button>
             <ul>
-                <li><button id="btnHome"> black & white </button></li>
+                <li><button id="btnHome"> Home </button></li>
                 <li><button id="btnHistory"> History </button></li>
                 <li><button id="btnEquipment"> Equipment</button></li>
                 <li><button id="btnMusicTheory">Theory</button></li>
@@ -28,14 +34,14 @@
                 <li><button id="btnExtra"> Get Started </button></li>
             </ul>
         </nav>
-        
+
         <!-- BALL TESTING -->
-        <button id="leftBtn">Left</button>
+        <!-- <button id="leftBtn">Left</button>
         <button id="rightBtn">Right</button>
         <button id="upBtn">Up</button>
         <button id="downBtn">Down</button>
         <button id="resetBtn">Reset</button>
-        <div id="ball">Ball</div>
+        <div id="ball">Ball</div> -->
 
         <!-- Pro tip if u want unique id names u gotta do array stuff bruh  -->
         <section class="page" id="page1"> 
@@ -200,7 +206,7 @@
                 <h3 class="colcenter"> Floor Toms </h3>
                 <h3 class="colright"> Drum Fills with Toms </h3>
                 <figure class="colleft"> 
-                    <img class="responsiveImg" width="300" src = images/Mid-Toms.jpg alt="Mid toms" title="Mid toms"> 
+                    <img class="responsiveImg" width="300" src = images/Mid-Toms.JPG alt="Mid toms" title="Mid toms"> 
                 </figure>
                 <figure class="colcenter"> 
                     <img class="responsiveImg" width="300" src = images/Floor-Toms.jpg alt="Floor tom" title="Floor tom"> 
@@ -255,6 +261,41 @@
                     to control how "open" the Hi-hat is. A closed Hi-hat where the drummer doesnt engage the pedal, creates a short sustained Staccato. On the other hand pressing on the pedal slightly "opens" the Hi-hat 
                     and leave a small gap inbetween the cymbals, creating a loud and brash sound. 
                 </p>
+            </article>
+
+            <!-- DRUM KIT GAME -->
+            <article id="drumkitPart6">
+                <h2> Drum Game! Click on the parts to hear their different sounds! </h2>
+                <div id="drumkitGame"> 
+                    <div id="drumKitBassDrum"> 
+                        <div> </div>
+                        <div> </div>
+                        <div> </div>
+                        <div> </div>
+                    </div>
+                    <div id="drumKitDrums"> 
+                        <div> </div>
+                        <div> </div>
+                        <div> </div>
+                        <div> </div>
+                    </div>
+                    <div id="drumKitCymbals">
+                        <div> </div>
+                        <div> </div>
+                        <div> </div>
+                        <div> </div>
+                    </div>
+                    <div id="drumKitDrumStands">
+                        <div> </div>
+                        <div> </div>
+                    </div>
+                    <div id="drumKitCymbalStands">
+                        <div> </div>
+                        <div> </div>
+                        <div> </div>
+                        <div> </div>
+                    </div>
+                </div>
             </article>
         </section>
 
@@ -354,15 +395,13 @@
 
             <!-- Taiko mini game  -->
             <article id="theoryPart5"> 
-
-                <div id="taikoSprite">
-                </div>
+                <div id="taikoScore"> </div>
+                <div id="taikoSprite"> </div>
                 <div id="taikoGame"> 
                     <button> Start Game </button>
                     <p> V for Blue, B for Red </p>
                 </div>
                 <div id="taikoTarget"> </div>
-                <!-- <div class="taikoCircle"> </div> -->
             </article>
             
 
@@ -531,6 +570,97 @@
                 <button id="submitformBtn"> Submit </button>
             </article>
 
+
+            <!-- if no time just make quiz but u can try a shop and make the drum size and what not save the data and do the thing  -->
+            <article>
+                <h2> Da shop </h2>
+                <p> Buy all my goods pls </p>
+             </article>
+            <article class="contentGrid" id="shop">
+                <div class="colleft">
+                    <figure> <img class="responsiveImg shopImg"> </figure>
+                    <div class="shopDetail">
+                        <p> Price: $1999 </p>
+                        <label> <input type="radio" name="colour" value='black'required> Black </label> 
+                        <label> <input type="radio" name="colour" value='blue' required> Blue </label> 
+                        <label> <input type="radio" name="colour" value='red'  required> Red </label> 
+                        <label> <input type="radio" name="colour" value='peach'required> Peach  </label> <br>
+                    </div>
+                </div>
+                <div class="colcenter">
+                    <figure> <img class="responsiveImg shopImg"> </figure>   
+                    <div class="shopDetail">
+                        <p > Price: $199 </p>
+                        <label> <input type="radio" name="colour" value='black' required> Black </label> 
+                        <label> <input type="radio" name="colour" value='blue'  required> Blue </label> 
+                        <label> <input type="radio" name="colour" value='red'   required> Red </label> 
+                        <label> <input type="radio" name="colour" value='peach' required> Peach  </label> <br>
+                    </div>                 
+                </div>
+                <div class="colright">
+                     <figure> <img class="responsiveImg shopImg"> </figure>      
+                    <div class="shopDetail">
+                        <p > Price: $250 </p>
+                        <label> <input type="radio" name="size" value='5' required> 5'' </label> 
+                        <label> <input type="radio" name="size" value='7'  required> 7''</label> 
+                        <label> <input type="radio" name="size" value='13'   required> 13'' </label> 
+                        <label> <input type="radio" name="size" value='15' required> 15''  </label> <br>
+                    </div>                   
+                </div>  
+                <div class="colleft">
+                     <figure> <img class="responsiveImg shopImg"> </figure>                    
+                    <div class="shopDetail">
+                        <p > Price: $800 </p>
+                        <label> <input type="radio" name="size" value='7'  required> 7'' </label> 
+                        <label> <input type="radio" name="size" value='11'  required> 11''</label> 
+                        <label> <input type="radio" name="size" value='17' required> 17'' </label> 
+                        <label> <input type="radio" name="size" value='20' required> 20''  </label> <br>
+                    </div>                     
+                </div>
+                <div class="colcenter">
+                    <figure> <img class="responsiveImg shopImg"> </figure>                    
+                    <div class="shopDetail">
+                        <p > Price: $300 </p>
+                        <label> <input type="radio" name="size" value='7'  required> 7'' </label> 
+                        <label> <input type="radio" name="size" value='11'  required> 11''</label> 
+                        <label> <input type="radio" name="size" value='17' required> 17'' </label> 
+                        <label> <input type="radio" name="size" value='20' required> 20''  </label> <br>
+                    </div>       
+                </div>
+                <div class="colright">
+                    <figure> <img class="responsiveImg shopImg"> </figure>                    
+                    <div class="shopDetail">
+                        <p > Price: $199 </p>
+                        <label> <input type="radio" name="colour" value='black' required> Black </label> 
+                        <label> <input type="radio" name="colour" value='blue'  required> Blue </label> 
+                        <label> <input type="radio" name="colour" value='red'   required> Red </label> 
+                        <label> <input type="radio" name="colour" value='peach' required> Peach  </label> <br>
+                    </div>  
+                </div>
+
+                <article id="shopFunctions">
+                    <button id="exitButton"> &#x1F7AE; </button>
+                    <button id="checkoutButton"> Go to CheckOut </button>
+                </article>
+            </article>
+
+            <form id="shopcheckout">
+                    <label> Name: <input type="text" required>       </label><br>
+                    <label> Email: <input type="email" required>     </label><br>
+                    <label> Phone Number: <input type="tel" required>    </label><br>
+                    <label> Country: <input type="tel" required>    </label><br>
+                    <label> Address: <input type="text" required>    </label><br>
+                    <label> Card no.: <input type="col" required>    </label><br>
+                    <label> Expiry: <input type="date" required>    </label><br>
+                    <label> CVC: <input type="number" required>    </label><br>
+                    <div>
+                        <h3> Your purchase </h3> <br>
+                        <figure> <img id="shopPurchase"> </figure>
+                        <p> </p>
+                    </div>
+                    <button type="reset"> Purchase </button>
+            </form>
+
         </section>
 
         <section class="page" id="page6"> 
@@ -538,98 +668,13 @@
         </section>
 
 
+        <!-- TO USE FOR FUTURE ACTUAL  -->
 
-            <!--  TO USE FOR FUTURE  -->
-
-            <!-- Messing around with css sprite -->
-
-            <!-- <article  id="sprite" class="sprite2">
-            </article> -->
-
-            <!-- 
-             <article id="testingdynamic"> 
-                <h2>Dynamic Content Demo 5: Add Remove Elements</h2>
-                <section id="dynamicArea">
-                </section>
-                <button id="addBtn">Add</button>
-                <button id="remBtn">Remove</button>
-            </article>
-            <article id="testingPage3">
-            <h2> Newsletter</h2>
-            <p> Passionate about drums? Want to find out more? Sign up for our weekly newsletter, "The Drum Escapades" today! </p>
-
-            Name: <label> <input type="text"><br> </label>
-            Email: <input type="email"><br>
-            Number: <input type="number"><br>
-            Telephone: <input type="tel"><br>
-            Interested Topics:
-            <label> <input type="checkbox"> Drum classes </label> 
-            <label> <input type="checkbox"> Drum Museums </label> 
-            <label> <input type="checkbox"> Events </label>
-            <label> <input type="checkbox"> Volunteering </label> <br>
-        </article>
-
-        <article id="testingPage3"> 
-
-            <h1> MCQ Quiz </h1>
-            <fieldset> 
-                <legend> 1. What is the captial of Japan </legend>
-                <input type="radio" name="q1" value="Beijing"> Beijing
-                <input type="radio" name="q1" value="Seoul"> Seoul
-                <input type="radio" name="q1" value="Tokyo"> Tokyo
-                <input type="radio" name="q1" value="Bangkok"> Bangkok
-            </fieldset>
-            <fieldset> 
-                <legend> 2. Which of these is a primary colour? </legend>
-                <input type="radio" name="q2" value="Cyan"> Cyan
-                <input type="radio" name="q2" value="Orange"> Orange
-                <input type="radio" name="q2" value="Purple"> Purple
-                <input type="radio" name="q2" value="Red"> Red
-            </fieldset>
-            <fieldset> 
-                <legend> 3. What date did US enter WW2? </legend>
-                <input type="radio" name="q3" value="12_1941"> 8th December 1941
-                <input type="radio" name="q3" value="12_1940"> 8th December 1940
-                <input type="radio" name="q3" value="6_1941"> 8th June 1941
-                <input type="radio" name="q3" value="9_1940"> 8th September 1940
-            </fieldset>
-            <button id="btnSubmit"> Submit Quiz</button>
-            <h3 id="scorebox"> Not Submitted </h3>
-
-            <input id="aField" type="number" placeholder="Enter a">
-            <input id="bField" type="number" placeholder="Enter b">
-            <button id="sum">Get Sum</button>
-            <p class="msg-box" id="sum-box">Enter 2 numbers, press get sum</p>
-
-            <label id="smaller">??</label>&lt;<input type="number" id="guessField">
-            &lt;<label id="bigger">??</label><button id="btnGuess">Guess!</button>
-            <p id="commentsBox">Guess my number!</p>
-        
-
-            Password: <input type="password"><br>
-            Number: <input type="number"><br>
-            Date: <input type="date"><br>
-            URL: <input type="url"><br>
-            Telephone: <input type="tel"><br>
-            Color: <input type="color"><br>
-            Range: <input type="range"><br>
-            Checkbox:
-            <label> <input type="checkbox"> Option 1 </label> 
-            <label> <input type="checkbox"> Option 2 </label> 
-            <label> <input type="checkbox"> Option 3 </label> <br>
-            Radio:
-            <input type="radio"> Choice A
-            <input type="radio"> Choice B
-            <input type="radio"> Choice C<br>
-            Dropdown:
-            <select>
-            <option>Option X</option>
-            <option>Option Y</option>
-            </select><br>
-            Comments:<br><textarea rows="5">
-            </textarea><br>
-        </article> -->
-
+        <footer>
+            <img id="qrCodeImg" src="images/qrcode.png" alt="qrcode">
+        </footer>
+        <button id="btnFS">FullScreen</button>
+        <button id="btnWS">Exit Full Screen</button>
 
     </body>
 </html>

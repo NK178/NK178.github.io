@@ -25,80 +25,80 @@
 
 
 // Ball game
-/*find references to all the buttons and ball */
-const leftBtn = document.querySelector("#leftBtn");
-const rightBtn = document.querySelector("#rightBtn");
-const upBtn = document.querySelector("#upBtn");
-const downBtn = document.querySelector("#downBtn");
-const resetBtn = document.querySelector("#resetBtn");
-const ball = document.querySelector("#ball");
-var ballX = ballY = 0; //assign initial position of ball
+// /*find references to all the buttons and ball */
+// const leftBtn = document.querySelector("#leftBtn");
+// const rightBtn = document.querySelector("#rightBtn");
+// const upBtn = document.querySelector("#upBtn");
+// const downBtn = document.querySelector("#downBtn");
+// const resetBtn = document.querySelector("#resetBtn");
+// const ball = document.querySelector("#ball");
+// var ballX = ballY = 0; //assign initial position of ball
 
-resetBtn.addEventListener("click", ResetPos);
-document.addEventListener('keydown', (e) => {
-    UpdateMovement(e);
-});
-
-
-function ResetPos() {
-    ballX=ballY=0; //reset to zero
-    UpdateBallStyle();
-}
-function MovePos(leftInc, topInc) {
-    var newX = ballX + leftInc;
-    var newY = ballY + topInc;
-    if (ConstraitChecker(newX,newY)){
-        ballX += leftInc;
-        ballY += topInc;
-        UpdateBallStyle();
-    }
-}
-
-//function to update ball css as well as display text
-//NEED TO HAVE PIXEL(PX) BEHIND FOR CSS TO WORK
-function UpdateBallStyle(){
-    ball.style.left = ballX+"px"; //set left property to ball x variable
-    ball.style.top = ballY+"px"; //set top property to ball x variable
-    ball.innerText = ballX + "," + ballY; //update ball text to show coordinate
-}
-
-function UpdateMovement(input) {
-
-    if (input.code === "KeyD"){
-        MovePos(10,0);
-    }
-    if (input.code === "KeyA"){
-        MovePos(-10,0);
-    }
-    if (input.code === "KeyS"){
-        MovePos(0,10);
-    }
-    if (input.code === "KeyW"){
-        MovePos(0,-10);
-    }
-}
-
-function ConstraitChecker(xPos, yPos){
-    if (xPos < 0 || xPos > 150 || yPos < 0 || yPos > 200)
-        return false;
-    else
-        return true;
-}
+// resetBtn.addEventListener("click", ResetPos);
+// document.addEventListener('keydown', (e) => {
+//     UpdateMovement(e);
+// });
 
 
-//using anonymous function to pass in arguments from eventlistener
-leftBtn.addEventListener("click", function () {
-    MovePos(-10, 0)
-});
-rightBtn.addEventListener("click", function () {
-    MovePos(10, 0)
-});
-upBtn.addEventListener("click", function () {
-    MovePos(0, -10)
-});
-downBtn.addEventListener("click", function () {
-    MovePos(0, 10)
-});
+// function ResetPos() {
+//     ballX=ballY=0; //reset to zero
+//     UpdateBallStyle();
+// }
+// function MovePos(leftInc, topInc) {
+//     var newX = ballX + leftInc;
+//     var newY = ballY + topInc;
+//     if (ConstraitChecker(newX,newY)){
+//         ballX += leftInc;
+//         ballY += topInc;
+//         UpdateBallStyle();
+//     }
+// }
+
+// //function to update ball css as well as display text
+// //NEED TO HAVE PIXEL(PX) BEHIND FOR CSS TO WORK
+// function UpdateBallStyle(){
+//     ball.style.left = ballX+"px"; //set left property to ball x variable
+//     ball.style.top = ballY+"px"; //set top property to ball x variable
+//     ball.innerText = ballX + "," + ballY; //update ball text to show coordinate
+// }
+
+// function UpdateMovement(input) {
+
+//     if (input.code === "KeyD"){
+//         MovePos(10,0);
+//     }
+//     if (input.code === "KeyA"){
+//         MovePos(-10,0);
+//     }
+//     if (input.code === "KeyS"){
+//         MovePos(0,10);
+//     }
+//     if (input.code === "KeyW"){
+//         MovePos(0,-10);
+//     }
+// }
+
+// function ConstraitChecker(xPos, yPos){
+//     if (xPos < 0 || xPos > 150 || yPos < 0 || yPos > 200)
+//         return false;
+//     else
+//         return true;
+// }
+
+
+// //using anonymous function to pass in arguments from eventlistener
+// leftBtn.addEventListener("click", function () {
+//     MovePos(-10, 0)
+// });
+// rightBtn.addEventListener("click", function () {
+//     MovePos(10, 0)
+// });
+// upBtn.addEventListener("click", function () {
+//     MovePos(0, -10)
+// });
+// downBtn.addEventListener("click", function () {
+//     MovePos(0, 10)
+// });
 
 
 //////////////////////////////////// ASSIGNMENT PART ////////////////////////
@@ -252,6 +252,7 @@ const newsLetterRadioInputs = newsLetterForm.querySelectorAll('input[type="radio
 const newsLetterCheckboxInputs = newsLetterForm.querySelectorAll('input[type="checkbox"]');
 
 
+
 newsLetterBtn.addEventListener("click", function () {
     newsLetterForm.classList.toggle("menuShow");
     if (newsLetterForm.classList.contains("menuShow"))
@@ -316,19 +317,31 @@ for (let i = 0; i < newsLetterInputs.length; i++){
 const taikoGame = document.getElementById("theoryPart5");
 const taikoGameBtn = document.querySelector("#taikoGame button")
 const target = document.getElementById("taikoTarget");
+const taikoScore = document.getElementById("taikoScore");
 //I set this to var to keep updating circle pool
 var allActiveCircles = document.querySelectorAll(".taikoCircle");
+var allActiveScorePoints = document.querySelectorAll(".taikoScorePoint");
+
 
 //starting pos
-var circleSpawn = 900;
+const circleSpawn = 900;
 const targetSpawn = 200;
 const circleEnd = 160;
 target.style.left = targetSpawn+"px";
 target.style.top = "5px";
 
 //game settings
-const moveSpeed = 2;
+const moveSpeed = 3;
+const maxGameTime = 15;
+var gameTimer = 0;
 var gameStart = false;
+var gameTimerIntervalActive = false;
+var gameScore = 0;
+var gameTimerInterval;
+var timerDiv;
+
+
+
 //different scores
 const okHitRange = 50;
 const goodHitRange = 20;
@@ -338,9 +351,9 @@ const maxActiveCircles = 7;
 var totalActiveCircles = 0;
 var circleIDTracker = 0;
 var spawnTime = 0;
-let isCircleActive = true;
 let isTimeoutActive = false;
-let isCircleInRange = false;
+
+
 const TargetState =  {
     NONE: "none",
     MISS: "miss",
@@ -350,25 +363,64 @@ const TargetState =  {
     CURRENT: ""
 };
 
-//game control button
+////////////////////////////////// GAME CONTROL BUTTON 
 taikoGameBtn.addEventListener('click',function() {
 
     if (!gameStart){
-        gameStart = true;
         taikoGameBtn.innerHTML = "Stop Game";
+        // Create countdown 
+        var countDownDiv = document.createElement('div');
+        countDownDiv.id = 'taikoCountDown';
+        countDownDiv.style.position = 'absolute'
+        countDownDiv.style.left = 500+"px";
+        countDownDiv.style.top = "15px";
+        countDownDiv.style.fontSize = "2em";
+        countDownDiv.innerHTML = "3";
+        taikoGame.appendChild(countDownDiv);
+        const countdown = document.getElementById('taikoCountDown');
+
+        taikoGameBtn.display = "none";
+        let countdownInterval = setInterval(function() {
+            var count = parseInt(countdown.innerHTML) - 1;
+            countdown.innerHTML = count;
+        },1000);        
+
+        setTimeout(function() {
+            clearInterval(countdownInterval);
+            countdown.remove();
+            taikoScore.display = 'block';
+            gameStart = true;
+            taikoScore.style.display = "block";
+
+            timerDiv = document.createElement('div');
+            timerDiv.id = 'taikoTimer';
+            timerDiv.style.position = 'absolute'
+            timerDiv.style.left = 500+"px";
+            timerDiv.style.top = "15px";
+            timerDiv.style.fontSize = "2em";
+            timerDiv.innerHTML = maxGameTime - gameTimer;
+            taikoGame.appendChild(timerDiv);
+        },3000);
+
     }
     else {
         taikoGameBtn.innerHTML = "Start Game";
         gameStart = false;
-        //when game stop delete all current circles
+        //reset all 
         for (let c of allActiveCircles){
             RemoveCircle(c);
         }
-
+        totalActiveCircles = 0;
+        circleIDTracker = 0;
+        spawnTime = 0;
+        isTimeoutActive = false;
+        gameScore = 0;
+        gameTimer = 0;
+        taikoScore.style.display = 'none';
     }
 });
 
-// game update
+//////////////////////////////////// TAIKO GAME UPDATE ///////////////////////////
 requestAnimationFrame(TaikoGameUpdate);
 
 
@@ -379,6 +431,8 @@ document.addEventListener('keyup', (e) => {
         //check collision
         CheckDrumHit(target,closestCircle);
         HandleGameInput(e,closestCircle);
+        if (e.code === "KeyV" || e.code === "KeyB")
+            HandleScoreVisual(closestCircle);
     }
 });
 
@@ -387,7 +441,11 @@ function TaikoGameUpdate() {
     if (gameStart) {
         for (let c of allActiveCircles) {
             MoveCircle(c);
+            //if reach the end 
             if ((parseInt(c.style.left) < circleEnd)){
+                //miss if have to remvoe via this way 
+                TargetState.CURRENT = TargetState.MISS;
+                HandleScoreVisual(c);
                 RemoveCircle(c);
             }
         }
@@ -395,10 +453,16 @@ function TaikoGameUpdate() {
         SpawnCircle();
         //always check
         allActiveCircles = document.querySelectorAll(".taikoCircle");
+        allActiveScorePoints = document.querySelectorAll(".taikoScorePoint");
+        UpdatePlayerScore();
+        UpdateGameTimer(); 
     }
     LoopAnimation();
+    TargetState.CURRENT = TargetState.NONE;
     gameUpdate = requestAnimationFrame(TaikoGameUpdate);
+
 }
+
 
 function CheckDrumHit(target,circle) {
     var targetPos = parseInt(target.style.left);
@@ -471,10 +535,10 @@ function SpawnCircle() {
                     
                     // Need to put game start to prevent spawning after game has ended
                     if (gameStart) {
-                        circleIDTracker++;
 
+                        //add new circle 
+                        circleIDTracker++;
                         var newDiv = document.createElement('div');
-                        //add class name
                         newDiv.className = 'taikoCircle';
                         newDiv.style.left = circleSpawn+"px";
                         newDiv.style.top = "5px";
@@ -486,6 +550,7 @@ function SpawnCircle() {
 
                         taikoGame.appendChild(newDiv);
                         totalActiveCircles++;
+
                         //reset
                         spawnTime = 0;
                         isTimeoutActive = false;
@@ -529,6 +594,8 @@ function HandleGameInput(input,closestcircle) {
                 }
             }
             else {
+                //set state to miss if colour is wrong 
+                TargetState.CURRENT = TargetState.MISS
                 console.log("MISS");
             }
         }
@@ -536,6 +603,37 @@ function HandleGameInput(input,closestcircle) {
         //always delete if key pressed
         RemoveCircle(closestcircle);
     }
+}
+
+
+function HandleScoreVisual(closestCircle) {
+    // hit point that spawns from closest circle 
+    var scoreDisplay;
+    //check what score to display 
+    switch(TargetState.CURRENT){
+        case TargetState.OK:
+            scoreDisplay = "taiko30k";
+            break;
+        case TargetState.GOOD:
+            scoreDisplay = "taiko100k";
+            break;
+        case TargetState.PERFECT:
+            scoreDisplay = "taiko300k";
+            break;
+        case TargetState.MISS:
+            scoreDisplay = "taikomiss";
+            break;
+    }
+    var newPoint = document.createElement('div');
+    newPoint.className = 'taikoScorePoint ' + scoreDisplay;
+    newPoint.style.left = closestCircle.style.left;
+    taikoGame.appendChild(newPoint);
+
+    // Trigger animation after a delay to trigger animation 
+    setTimeout(function() {
+        newPoint.classList.add('transparent');
+        newPoint.classList.add('floatup');
+    },10);
 }
 
 function FindClosestCircle(){
@@ -551,7 +649,7 @@ function FindClosestCircle(){
     return closestCircle;
 }
 
-
+//taiko animation 
 const taikoSprite = document.getElementById("taikoSprite");
 let isTaikoAnimating = false;
 //Taiko animation could consider making it into a reusable function 
@@ -565,6 +663,245 @@ function LoopAnimation(){
         }, 5000);
     }
 }
+
+//score board
+function UpdatePlayerScore(){
+    switch(TargetState.CURRENT){
+        case TargetState.OK:
+            gameScore += 30;
+            break;
+        case TargetState.GOOD:
+            gameScore += 100;
+            break;
+        case TargetState.PERFECT:
+            gameScore += 300;
+            break;
+        //no point for break 
+    }
+    taikoScore.innerHTML = gameScore;
+}
+
+
+//for end game timer 
+function UpdateGameTimer(){
+
+    if (gameStart) {
+        //set up the interval 
+        if (!gameTimerIntervalActive) {
+            gameTimerInterval = setInterval(function() {
+                gameTimer++;
+            },1000);
+            gameTimerIntervalActive = true;
+        }
+        timerDiv.innerHTML = maxGameTime - gameTimer;
+        if (gameTimer > maxGameTime){
+            taikoGameBtn.click();
+            timerDiv.remove();
+            gameTimerIntervalActive = false;
+        }
+    }
+}
+
+
+
+//////////////////////////////////////////////////// DRUM KIT SOUND GAME /////////////////////////////////////////
+
+//Event delegation (doenst work with keyboard yet I think)
+const drumGameBassDrum = document.querySelector("#drumKitBassDrum")
+const drumGameDrums = document.querySelector("#drumKitDrums");
+const drumGameCymbals = document.querySelector("#drumKitCymbals");
+var AudioListDrums = ['snaredrum','midtom','hightom','floortom','kickdrum'];
+var AudioListCymbals = ['hihats','crashcymbal','ridecymbal'];
+
+drumGameBassDrum.addEventListener("click",function(evt){
+    BassDrumAnim(evt);
+    var audio = new Audio('audio/'+AudioListDrums[4]+'.mp3');
+    audio.currentTime = 0;  
+    audio.play();
+});
+
+drumGameDrums.addEventListener("click",function(evt){
+    AddAnimClass(evt,200,'scaleup');
+    AddAnimClass(evt,500,'shakeAnim');
+    var drumIndex = 0;
+    switch(evt.target){
+        case this.children[0]:
+            drumIndex = 0;
+            break;
+        case this.children[1]:
+            drumIndex = 1;
+            break;
+        case this.children[2]:
+            drumIndex = 2;
+            break;
+        case this.children[3]:
+            drumIndex = 3;
+            break;
+        default:
+            drumIndex = -1; 
+            break;
+    }
+    var audio = new Audio('audio/'+AudioListDrums[drumIndex]+'.mp3');
+    audio.currentTime = 0;  
+    audio.play();
+});
+
+drumGameCymbals.addEventListener("click", function(evt){
+    AddAnimClass(evt,1000,'skew');
+    // set default as ride cymbal
+    var cymbalIndex = 0;
+    switch(evt.target){
+        case this.children[0]:
+            cymbalIndex = 0;
+            break;
+        case this.children[1]:
+            cymbalIndex = 1;
+            break;
+        default:
+            cymbalIndex = 2; 
+            break;
+    }
+    var audio = new Audio('audio/'+AudioListCymbals[cymbalIndex]+'.mp3');
+    audio.currentTime = 0;  
+    audio.play();
+});
+
+function BassDrumAnim(evt){
+    //add scale only to drum
+    var drum = document.querySelector("#drumKitBassDrum div:nth-of-type(1)")
+    var fakeDrumEvent = { target: drum };
+    AddAnimClass(fakeDrumEvent,200,'scaleup');
+
+    var hammer = document.querySelector("#drumKitBassDrum div:nth-of-type(4)");
+    var fakeHammerEvent = { target: hammer };
+    AddAnimClass(fakeHammerEvent,200,'hammerRotate');
+
+    var pedal = document.querySelector("#drumKitBassDrum div:nth-of-type(2)");
+    var fakePedalEvent = { target: pedal };
+    AddAnimClass(fakePedalEvent,200,'pedalTriggered');
+
+
+}
+
+function AddAnimClass(evt, time, name){
+    var sender = evt.target; 
+    sender.classList.add(name);
+    
+    setTimeout(() => {
+        sender.classList.remove(name);
+    }, time);
+}
+
+////////////////////////////////////// SHOP //////////////////////////////////////
+// prevent buttons breaking
+var inViewMode = false;
+var shopItemIndex = -1;
+const shop = document.getElementById("shop");
+const allShopItems = document.querySelectorAll("#shop > div");
+const shopFunction = document.getElementById('shopFunctions');
+const shopExit = document.getElementById('exitButton');
+const shopCheckoutBtn = document.getElementById('checkoutButton');
+const shopCheckout  = document.getElementById('shopcheckout');
+const purchaseBtn = document.querySelector('#shopcheckout button');
+
+// EXIT BUTTON from shop 
+shopExit.addEventListener("click", function(evt){
+    // Prevent the click from bubbling up to the shop
+    evt.stopPropagation(); 
+    let allShopItems=document.querySelectorAll("#shop > div");
+    // reset functionalities 
+    for (let shopItem of allShopItems){
+        shopItem.style.display ='flex';
+        shopItem.classList.add('displayMode');
+        var shopFigure = shopItem.querySelector('figure');
+        var shopDetail = shopItem.querySelector('.shopDetail');
+        shopFigure.classList.remove("displayMode");
+        shopDetail.classList.remove("displayMode");
+        shopItem.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.checked = false;
+        });
+    }
+    shopFunctions.style.display = 'none';
+    shop.style.display = 'grid';
+    inViewMode = false;
+
+});
+
+// CHECK OUT TO SHOP 
+shopCheckoutBtn.addEventListener("click", function(){
+    var checkoutImg = document.getElementById('shopPurchase');
+    // open up checkout page 
+    shop.style.display = 'none';
+    shopCheckout.style.display = 'block';
+    var checkOutOutput = document.querySelector('#shopcheckout > div p');
+    var shopItem = document.querySelector(`#shop div:nth-of-type(${shopItemIndex})`);
+
+    //add the image 
+    checkoutImg.classList.add(`shopItem${shopItemIndex}`);
+    //add respective properties 
+    let checkedOption = shopItem.querySelector('input[type="radio"]:checked');
+    if (checkedOption.name === 'size'){
+        checkOutOutput.innerHTML = "Size: "+checkedOption.value+"''";
+    }
+    else if (checkedOption.name === 'colour'){
+        checkOutOutput.innerHTML = "Colour: "+checkedOption.value;
+    }
+});
+
+purchaseBtn.addEventListener("click",function(){
+    alert("Thank you for your purchase!");
+});
+
+shop.addEventListener("click", function(evt) {
+    if (!inViewMode)
+        ShopEventHandler(evt);
+});
+
+function ShopEventHandler(evt){
+
+    var sender = evt.target;
+    shopItemIndex = Array.from(allShopItems).indexOf(sender) + 1;
+    // show the relevant image clicked
+    var shopItem = document.querySelector(`#shop div:nth-of-type(${shopItemIndex})`);
+    show(`#shop div:nth-of-type(${shopItemIndex})`,allShopItems);
+
+
+    //change styling of the components
+    shop.style.display = 'block';
+    shopItem.classList.add('displayMode');
+    var shopImage = shopItem.querySelector('.shopImg');
+    var shopFigure = shopItem.querySelector('figure');
+    var shopDetail = shopItem.querySelector('.shopDetail');
+    // active shop display 
+    shopFigure.classList.add("displayMode");
+    shopDetail.classList.add("displayMode");
+
+    //activate shop functions
+    shopFunctions.style.display = 'block';
+
+    // disable all clicking from this 
+    inViewMode = true;
+
+}
+
+
+
+
+
+
+/////////////////////////////// WINDOW FUNCTIONALITY /////////////////////////
+const btnFS=document.querySelector("#btnFS");
+const btnWS=document.querySelector("#btnWS");
+btnFS.addEventListener("click",enterFullscreen);
+btnWS.addEventListener("click",exitFullscreen);
+function enterFullscreen() { //must be called by user generated event
+document.documentElement.requestFullscreen();
+}
+function exitFullscreen() {
+document.exitFullscreen();
+}
+
+
 
 
 

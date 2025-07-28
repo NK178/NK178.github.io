@@ -22,7 +22,7 @@
     transition: width 1.3s;
 }
 #navbar > ul {
-    width: 875px;
+    width: 750px;
 
     /* width: 775px; */
     background-color: peachpuff;
@@ -32,10 +32,10 @@
 }
 #navbar > ul li {
     display: inline-block; 
-    margin: 0 5px;
+    margin: 0 2px;
 }
 #navbar ul li button {
-    width: 120px;
+    width: 110px;
     margin: 5px 2px;
     padding: 7px;
     color: red;
@@ -187,7 +187,37 @@
     border-radius: 50%;
 }
 
-/* hit marker images */
+/* hit marker images  */
+/* I hate css styling  */
+.taikoScorePoint.floatup{top: 0px;} 
+.taikoScorePoint.transparent{opacity: 0;}
+.taikoScorePoint{
+	background: url('images/taikoScores.png') no-repeat;
+    top: 40px;
+    opacity: 1;
+    position: absolute; 
+    transition: top 1s, opacity 1s;
+}
+.taiko300k{
+    background-position: -6px -6px;
+	width: 100px;
+	height: 42px;
+}
+.taiko100k{
+	background-position: -11px -76px;
+	width: 90px;
+	height: 49px;
+}
+.taiko30k{
+	background-position: -15px -151px;
+	width: 79px;
+	height: 47px;
+}
+.taikomiss{
+	background-position: -24px -218px;
+	width: 62px;
+	height: 60px;
+}
 
 .taikoAnim{
 	background: url('images/taikoSpriteSheet.png') no-repeat;
@@ -253,8 +283,414 @@
     }
 }
 
+
+/* //////////////////////////////////////////// DRUM KIT GAME /////////////////// */
+#drumkitPart6 {
+    display: block; 
+    width: 100%; 
+    height: 500px; 
+    background-color: yellow;
+    overflow: hidden;
+}
+/* Transitions & animations need to add important */
+#drumKitBassDrum div.scaleup {
+    transform: scale(1.08) !important;
+}
+
+#drumKitDrums div.scaleup {
+    transform: scale(1.05) !important;
+}
+
+#drumKitBassDrum div.hammerRotate{
+    transform: rotate(70deg) !important;
+}
+
+#drumKitBassDrum div.pedalTriggered{
+    transform: rotate(30deg) skewY(40deg) !important;
+}
+
+
+@keyframes shakeAnim{
+    0%{transform: rotate(0deg);}
+    15%{transform: rotate(20deg);}
+    30%{transform: rotate(-15deg);}
+    55%{transform: rotate(12deg);}
+    75%{transform: rotate(-8deg);}
+    90%{transform: rotate(5deg);}
+    100%{transform: rotate(0deg);}
+}
+
+@keyframes cymbalWobble {
+    0% { transform: skewY(0deg); }
+    10% { transform: skewY(20deg); }
+    20% { transform: skewY(-20deg); }
+    30% { transform: skewY(15deg); }
+    40% { transform: skewY(-15deg); }
+    50% { transform: skewY(10deg); }
+    60% { transform: skewY(-10deg); }
+    70% { transform: skewY(7deg); }
+    80% { transform: skewY(-7deg); }
+    90% { transform: skewY(3deg); }
+    100% { transform: skewY(0deg); }
+}
+
+#drumKitDrums div.shakeAnim{
+    animation: shakeAnim 0.5s ease-out;
+}
+
+#drumKitCymbals div.skew{
+    animation: cymbalWobble 1s ease-out;
+}
+
+
+#drumkitGame, #drumKitBassDrum, #drumKitDrums,#drumKitCymbals,#drumKitDrumStands,#drumKitCymbalStands {position: relative; }
+
+/* Controls everything  */
+#drumkitGame {
+    transform: scale(1.2);
+}
+#drumKitBassDrum{
+    top: 370px;
+    left: 700px;  
+}
+#drumKitDrums,#drumKitDrumStands {
+    top: 360px;
+    left: 300px;  
+}
+#drumKitCymbals, #drumKitCymbalStands{
+    top: 350px;
+    left: 300px;  
+}
+
+
+/* bass drum  */
+#drumKitBassDrum div:nth-of-type(1){ 
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    position: absolute;
+    top: -170px; 
+    left: 0px;  
+	background: url('images/drumgame_spritesheet1.png') no-repeat -7px -7px;
+	width: 162px;
+	height: 145px;
+    z-index: 10;
+}
+/* Drum pedal  */
+/* pedal rest  */
+#drumKitBassDrum div:nth-of-type(2){ 
+    transform-origin: 17px 40px;
+    transform: rotate(0deg) skewY(0deg);
+    transition: transform 0.2s ease-out;
+    position: absolute;
+    top: -45px;
+    left: 34px;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -298px -198px;
+	width: 46px;
+	height: 52px;
+    z-index: 11;
+}
+/* foot pedal base*/
+#drumKitBassDrum div:nth-of-type(3){ 
+    position: absolute;
+    top: -70px;
+    left: 25px;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -311px -263px;
+	width: 74px;
+	height: 93px;
+    z-index: 11;
+}
+/* pedal hammer  */
+#drumKitBassDrum div:nth-of-type(4){ 
+    transform-origin: 32px 40px;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-out;
+    position: absolute;
+    top:  -100px;
+    left: 40px;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -366px -197px;
+	width: 40px;
+	height: 47px;
+    z-index: 11;
+}
+
+/* Snare drum  */
+#drumKitDrums div:nth-of-type(1){
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    top:  -160px;
+    left: 320px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -192px -109px;
+	width: 109px;
+	height: 77px;
+    z-index: 5;
+}
+/* Toms  */
+#drumKitDrums div:nth-of-type(2){
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    top:  -230px;
+    left: 420px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -193px -5px;
+	width: 79px;
+	height: 84px;
+    z-index: 3;
+}
+#drumKitDrums div:nth-of-type(3){
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    top:  -230px;
+    left: 500px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -193px -5px;
+	width: 79px;
+	height: 84px;
+    z-index: 3;
+}
+
+
+/* Floor tom */
+#drumKitDrums div:nth-of-type(4){
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    top:  -160px;
+    left: 520px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -16px -162px;
+	width: 129px;
+	height: 202px;
+    z-index: 1;
+}
+
+/* Stands for drums */
+#drumKitDrumStands div:nth-of-type(1){
+    top:  -105px;
+    left: 320px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -499px -244px;
+	width: 100px;
+	height: 123px;
+    z-index: 1;
+}
+
+#drumKitDrumStands div:nth-of-type(2){
+    top:  -210px;
+    left: 450px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -22px -189px;
+	width: 90px;
+	height: 138px;
+    z-index: 2;
+}
+
+/* hit hats  */
+#drumKitCymbals div:nth-of-type(1){
+    transition: transform 0.2s linear;
+    transform: skewY(0deg);
+    top:  -180px;
+    left: 615px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -159px -189px;
+	width: 109px;
+	height: 67px;
+    z-index: 3;
+}
+/* Ride Cymbal */
+#drumKitCymbals div:nth-of-type(2){
+    transition: transform 0.2s linear;
+    transform: skewY(0deg);
+    top:  -250px;
+    left: 270px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -161px -265px;
+	width: 117px;
+	height: 87px;
+    z-index: 2;
+}
+#drumKitCymbals div:nth-of-type(3){
+    transition: transform 0.2s linear;
+    transform: skewY(0deg);
+    top:  -300px;
+    left: 350px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -321px -120px;
+	width: 123px;
+	height: 63px;
+    z-index: 1;
+}
+#drumKitCymbals div:nth-of-type(4){
+    transition: transform 0.2s linear;
+    transform: skewY(0deg);
+    top:  -300px;
+    left: 500px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -321px -120px;
+	width: 123px;
+	height: 63px;
+    z-index: 1;
+}
+
+
+/* Stands */
+#drumKitCymbalStands div:nth-of-type(1){
+    top:  -220px;
+    left: 600px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -368px -88px;
+	width: 117px;
+	height: 278px;
+    z-index: 1;
+}
+#drumKitCymbalStands div:nth-of-type(2){
+    top:  -220px;
+    left: 260px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -242px -114px;
+	width: 107px;
+	height: 257px;
+    z-index: 1;
+}
+#drumKitCymbalStands div:nth-of-type(3){
+    top:  -260px;
+    left: 370px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -131px -144px;
+	width: 103px;
+	height: 230px;
+    z-index: 0;
+}
+#drumKitCymbalStands div:nth-of-type(4){
+    top:  -260px;
+    left: 520px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -131px -144px;
+	width: 103px;
+	height: 230px;
+    z-index: 0;
+}
+
+
+/* ////////////////////////////////////////////////////// SHOP //////////////////////////////////////// */
+/* shop title */
+#page5 article:nth-of-type(2) {
+    text-align: center;
+    width: 100%;
+}
+/* CLASSES TO ADD LATER */
+#shop figure.displayMode {
+    display: inline-block !important;
+    background-color: red;
+    width: 50%;
+    height: 100%;
+}
+
+.shopDetail.displayMode{
+    vertical-align: top;
+    display: inline-block !important;
+    width: 49%;
+    height: 100%;
+    background-color: rgb(241, 227, 210);
+}
+
+#purchaseBtn {margin: 0 auto; display:block;}
+#shop > div.displayMode{ width: 100% !important; height: 100% !important;}
+
+#shopFunctions {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    /* NEED TO SET NONE ELSE WHOLE FORM BREAKS */
+    pointer-events: none; 
+    z-index: 1000;
+}
+
+#exitButton {
+    position: absolute;
+    top: 10px; 
+    right: 20px; 
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    width: clamp(40px, 6vw, 60px);
+    height: clamp(40px, 6vw, 60px);
+    pointer-events: all; 
+    color: red;
+}
+
+#checkoutButton {
+    position: absolute;
+    bottom: 20px; 
+    right: 20px;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    padding: clamp(8px, 1.5vw, 15px) clamp(15px, 3vw, 25px);
+    pointer-events: all; 
+}
+
+#shopcheckout {
+    text-align: center;
+    background-color: bisque;
+    display: none;
+    width: 100%;
+    height: 400px;
+}
+
+
+#shop{position: relative; width: 100%; height: 300px;}
+#shop > div{
+    background-color: bisque;
+    border: 2px beige solid;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#shop figure, .shopImg{pointer-events: none;}
+.shopDetail {display:none;}
+.shopImg {border: none !important;}
+
+
+
+
+#shop > div:nth-of-type(1) .shopImg, #shopPurchase.shopItem1 {
+    background: url('images/shopItems.png') no-repeat 0 0;
+    width: 166px;
+    height: 159px;
+}
+
+#shop > div:nth-of-type(2) .shopImg, #shopPurchase.shopItem2 {
+	background: url('images/shopItems.png') no-repeat -5px -170px;
+	width: 161px;
+	height: 144px;
+}
+#shop > div:nth-of-type(3) .shopImg, #shopPurchase.shopItem3 {
+	background: url('images/shopItems.png') no-repeat -206px -12px;
+	width: 105px;
+	height: 127px;
+}
+#shop > div:nth-of-type(4) .shopImg, #shopPurchase.shopItem4 {
+	background: url('images/shopItems.png') no-repeat -171px -180px;
+	width: 149px;
+	height: 102px;
+}
+#shop > div:nth-of-type(5) .shopImg, #shopPurchase.shopItem5 {
+	background: url('images/shopItems.png') no-repeat -317px -33px;
+	width: 151px;
+	height: 102px;
+}
+#shop > div:nth-of-type(6) .shopImg, #shopPurchase.shopItem6{
+	background: url('images/shopItems.png') no-repeat -330px -159px;
+	width: 144px;
+	height: 119px;
+}
+
+/* #shopPurchase { background: url('images/shopItems.png') no-repeat; } */
+
 /* General */
 h1, h2 {text-decoration: underline;}
+p{font-size: 1.3em;}
 
 
 /* ball */
@@ -336,10 +772,13 @@ h1, h2 {text-decoration: underline;}
         display: block;
     } */
 
+    /* //////////// QR code */
 
-
+    #qrCodeImg{display:none;} /*hide QR
+    code when its mobile size */
+    h1{background: lightgreen;}
+    h1::after{content:"(mobile)";}
 }
-
 
 
 
