@@ -936,6 +936,10 @@ for (let audioTrack of allAudios){
 }
 
 
-
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden){
+        StopAllAudios(allAudios);
+    }
+});
 
 
