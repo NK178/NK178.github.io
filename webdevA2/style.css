@@ -1,0 +1,853 @@
+* {margin: 0px;}
+
+
+/* ///////////////////////////////  NAV BAR ///////////////////////////////////// */
+
+h1 {text-align: center; background-color: lightblue; font-size: 1.4em;}
+#hamBtn{display:none;}
+
+/*to unhide menu items*/
+.menuShow{display:block !important;}
+
+/* For button menu transition */
+#navbar.expand {width: 30%;}
+
+/* set fixed height width use da RWD to adjust  */
+#navbar { 
+    /* background-color: blue; */
+    text-align: center; 
+    width: 100%; 
+    top: 10px; 
+    /* set this z index to not get covered by da videos */
+    z-index: 1000;
+    position: sticky; 
+    transition: width 1.3s;
+}
+#navbar > ul {
+    width: 750px;
+
+    /* width: 775px; */
+    background-color: peachpuff;
+    margin: 0 auto; /* center ul  */
+    border-radius: 25px;    
+    padding: 0px;
+}
+#navbar > ul li {
+    display: inline-block; 
+    margin: 0 2px;
+}
+#navbar ul li button {
+    width: 110px;
+    margin: 5px 2px;
+    padding: 7px;
+    color: red;
+    background-color: papayawhip;
+    border: 2px papayawhip solid;
+    border-radius: 15px;
+    font-size: 1.1em;
+}
+
+
+
+
+/* //////////////////////////////////// TEMPLATES  */
+
+
+.page{width:100%;border:2px solid black}
+
+/* grid template to use */
+.contentGrid {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr);
+}
+/* for ease of use when using content grid class */
+.colcenter {grid-column: 2;}
+.colleft {grid-column: 1;}
+.colright {grid-column: 3;}
+
+/* flex template to use */
+.contentFlex{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.contentInline{
+    display: inline;
+    width: 100%;
+}
+
+.flexcenter{
+    flex: 100%; 
+    justify-self: center;
+}
+
+.flexportion{
+    flex: 1;
+    justify-self: center;
+}
+
+.responsiveImg{
+    max-width: 100%;
+    height: auto;
+}
+
+.responsiveVid {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.responsiveIframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*      ////////////////////////////  HISTORY OF DRUMS  /////////////////////////              */
+/* Early origins and Troubled Times  */
+#page1{background:red; text-align:center;}
+#historyPart1 h2, #historyPart2 h2{grid-row: 1; padding-top: 20px;}
+#historyPart1 figure {grid-row: 1;}
+#historyPart2 p:nth-of-type(1), #historyPart2 figure:nth-of-type(1),#historyPart2 figure:nth-of-type(2){grid-row: 2;}
+#historyPart2 p:nth-of-type(2), #historyPart2 figure:nth-of-type(3),#historyPart2 figure:nth-of-type(4){grid-row: 3;}
+
+/* The present  */
+#historyPart4 figure:nth-of-type(1), #historyPart4 p, #historyPart4 div{flex: 1}
+
+/*      //////////////////////////// PARTS OF A DRUM KIT  /////////////////////////              */
+#page2{background:green; text-align:center;}
+#drumkitPart5 h3, #drumkitPart4 h3{text-decoration: underline;}
+/* Because the image is beside a video, the image has to follow the same aspect ratio else video will break */
+#drumkitPart4 .responsiveImg{aspect-ratio: 16/9; object-fit: contain;}
+
+/*      //////////////////////////// MUSIC THEORY  /////////////////////////              */
+
+#page3{background:blue}
+#page3 h2 {text-align: center;}
+/* Video about time signatures */
+#theoryPart2 > div {margin-left: 300px; margin-right: 300px; margin-bottom: 200px;}
+/* for the rwd later need display block how */
+#theoryPart1Btn1, #theoryPart1Btn2, #theoryPart1Btn3 {display: inline-block;}
+#taikoButtonMode {display: none; }
+#taikoButtonMode button {height: 30px; padding:3px; width: 49%; }
+#taikoGame > p {display: block; }
+
+
+/*      /////////////////////////////////////// MUSIC GENRES ////////////////////////////////////////              */
+#page4{background:yellow}
+#page4 h2 {text-align: center;}
+/* All videos side by side in page 4 */
+#page4 .flexportion.responsiveVid{padding-top: 28.125% !important;  /* now ratio halfed cos 2 images next to each other*/ }
+
+/* //////////////////////////////////////////////// EXTRAS  PAGE ////////////////////////////// */
+#page5 {background: orange;}
+#newsletter h2{text-align: center; font-size: 2em;}
+#newsletter>p  {text-align: center; font-size: 1.4em; }
+#newsletterBtn {display:block; margin: 0 auto; padding: 15px; font-size: 1.3em;}
+#newsletterform>p {text-decoration: underline;}
+#newsletterform {
+    text-align: center;
+    display: none;
+    margin: 0 auto; 
+    font-size: 1.4em;
+}
+#newsletterform label {
+    display: inline-block;
+    margin: 5px 0;
+}
+#submitformBtn {
+    margin: 0 auto; 
+    display: none;
+    padding: 15px; 
+    font-size: 1.3em;
+}
+
+
+/* /////////////////////////////////////////////// TAIKO GAME ////////////////////////  */
+#theoryPart5{
+    display: block;
+    position: relative;
+    width:100%;
+    height: 30vh;   
+    /* height: 200px; */
+    background-color: burlywood;
+}
+#taikoTarget{
+    position: absolute;
+    top: 50%; 
+    left: 5vw;
+    width: 100px; 
+    height: 100px;
+    border: 4px black solid; 
+    border-radius: 50%;
+}
+.taikoCircle{
+    position: absolute;
+    left: 50vw; 
+    top: 1vh;
+    width: 100px; 
+    height: 100px;
+    border: 2px lightgrey solid; 
+    border-radius: 50%;
+}
+
+/* hit marker images  */
+/* I hate css styling  */
+.taikoScorePoint.floatup{top: 0px;} 
+.taikoScorePoint.transparent{opacity: 0;}
+.taikoScorePoint{
+	background: url('images/taikoScores.png') no-repeat;
+    top: 40px;
+    opacity: 1;
+    position: absolute; 
+    transition: top 1s, opacity 1s;
+}
+.taiko300k{
+    background-position: -6px -6px;
+	width: 100px;
+	height: 42px;
+}
+.taiko100k{
+	background-position: -11px -76px;
+	width: 90px;
+	height: 49px;
+}
+.taiko30k{
+	background-position: -15px -151px;
+	width: 79px;
+	height: 47px;
+}
+.taikomiss{
+	background-position: -24px -218px;
+	width: 62px;
+	height: 60px;
+}
+
+.taikoAnim{
+	background: url('images/taikoSpriteSheet.png') no-repeat;
+    animation: taikoFrames 5s;
+}
+
+/* Animation  */
+@keyframes taikoFrames{
+    0%{
+        background-position: -297px -45px;
+        width: 111px;
+        height: 80px;
+    }
+    10%{
+        background-position: -147px -44px;
+        width: 112px;
+        height: 76px;
+    }
+    20%{
+        background-position: -302px -198px;
+        width: 105px;
+        height: 74px;
+    }
+    30%{
+        background-position: -163px -195px;
+        width: 87px;
+        height: 77px;
+    }
+    40%{
+        background-position: -170px -342px;
+        width: 71px;
+        height: 80px;
+    }
+    50%{
+        background-position: -183px -493px;
+        width: 98px;
+        height: 78px;
+    }
+    60%{
+        background-position: -24px -43px;
+        width: 98px;
+        height: 79px;
+    }
+    70%{
+        background-position: -41px -193px;
+        width: 60px;
+        height: 80px;
+    }
+    80%{
+        background-position: -10px -347px;
+        width: 91px;
+        height: 76px;
+    }
+    90%{
+        background-position: 0 -497px;
+        width: 104px;
+        height: 75px;
+    }
+    100%{
+        background-position: -147px -44px;
+        width: 112px;
+        height: 76px;
+    }
+}
+
+
+/* //////////////////////////////////////////// DRUM KIT GAME /////////////////// */
+#drumkitPart6 {
+    display: block; 
+    width: 100%; 
+    height: 500px; 
+    background-color: yellow;
+    overflow: hidden;
+}
+/* Transitions & animations need to add important */
+#drumKitBassDrum div.scaleup {
+    transform: scale(1.08) !important;
+}
+
+#drumKitDrums div.scaleup {
+    transform: scale(1.05) !important;
+}
+
+#drumKitBassDrum div.hammerRotate{
+    transform: rotate(70deg) !important;
+}
+
+#drumKitBassDrum div.pedalTriggered{
+    transform: rotate(30deg) skewY(40deg) !important;
+}
+
+
+@keyframes shakeAnim{
+    0%{transform: rotate(0deg);}
+    15%{transform: rotate(20deg);}
+    30%{transform: rotate(-15deg);}
+    55%{transform: rotate(12deg);}
+    75%{transform: rotate(-8deg);}
+    90%{transform: rotate(5deg);}
+    100%{transform: rotate(0deg);}
+}
+
+@keyframes cymbalWobble {
+    0% { transform: skewY(0deg); }
+    10% { transform: skewY(20deg); }
+    20% { transform: skewY(-20deg); }
+    30% { transform: skewY(15deg); }
+    40% { transform: skewY(-15deg); }
+    50% { transform: skewY(10deg); }
+    60% { transform: skewY(-10deg); }
+    70% { transform: skewY(7deg); }
+    80% { transform: skewY(-7deg); }
+    90% { transform: skewY(3deg); }
+    100% { transform: skewY(0deg); }
+}
+
+#drumKitDrums div.shakeAnim{
+    animation: shakeAnim 0.5s ease-out;
+}
+
+#drumKitCymbals div.skew{
+    animation: cymbalWobble 1s ease-out;
+}
+
+
+#drumkitGame, #drumKitBassDrum, #drumKitDrums,#drumKitCymbals,#drumKitDrumStands,#drumKitCymbalStands {position: relative; }
+
+/* Controls everything  */
+#drumkitPart6{position: relative;}
+
+#drumkitGame {
+    position: relative;  
+    top: 10vh;          
+    left: 10vw;         
+    transform: scale(1.2);
+}
+
+#drumKitBassDrum{
+    position: absolute;  
+    top: 37vh;          
+    left: 40vw;         
+}
+#drumKitDrums,#drumKitDrumStands {
+    position: absolute;  
+    top: 36vh;          
+    left: 20vw;         
+}
+#drumKitCymbals, #drumKitCymbalStands{
+    position: absolute;  
+    top: 35vh;          
+    left: 20vw;         
+}
+
+/* #drumkitGame {
+    top: 10vh;
+    left: 10vw;  
+    transform: scale(1.2);
+}
+#drumKitBassDrum{
+    top: 370px;
+    left: 700px;  
+}
+#drumKitDrums,#drumKitDrumStands {
+    top: 360px;
+    left: 300px;  
+}
+#drumKitCymbals, #drumKitCymbalStands{
+    top: 350px;
+    left: 300px;  
+} */
+
+
+/* bass drum  */
+#drumKitBassDrum div:nth-of-type(1){ 
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    position: absolute;
+    top: -170px; 
+    left: 0px;  
+	background: url('images/drumgame_spritesheet1.png') no-repeat -7px -7px;
+	width: 162px;
+	height: 145px;
+    z-index: 10;
+}
+/* Drum pedal  */
+/* pedal rest  */
+#drumKitBassDrum div:nth-of-type(2){ 
+    transform-origin: 17px 40px;
+    transform: rotate(0deg) skewY(0deg);
+    transition: transform 0.2s ease-out;
+    position: absolute;
+    top: -45px;
+    left: 34px;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -298px -198px;
+	width: 46px;
+	height: 52px;
+    z-index: 11;
+}
+/* foot pedal base*/
+#drumKitBassDrum div:nth-of-type(3){ 
+    position: absolute;
+    top: -70px;
+    left: 25px;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -311px -263px;
+	width: 74px;
+	height: 93px;
+    z-index: 11;
+}
+/* pedal hammer  */
+#drumKitBassDrum div:nth-of-type(4){ 
+    transform-origin: 32px 40px;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-out;
+    position: absolute;
+    top:  -100px;
+    left: 40px;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -366px -197px;
+	width: 40px;
+	height: 47px;
+    z-index: 11;
+}
+
+/* Snare drum  */
+#drumKitDrums div:nth-of-type(1){
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    top:  -160px;
+    left: 320px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -192px -109px;
+	width: 109px;
+	height: 77px;
+    z-index: 5;
+}
+/* Toms  */
+#drumKitDrums div:nth-of-type(2){
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    top:  -230px;
+    left: 420px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -193px -5px;
+	width: 79px;
+	height: 84px;
+    z-index: 3;
+}
+#drumKitDrums div:nth-of-type(3){
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    top:  -230px;
+    left: 500px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -193px -5px;
+	width: 79px;
+	height: 84px;
+    z-index: 3;
+}
+
+
+/* Floor tom */
+#drumKitDrums div:nth-of-type(4){
+    transform: scale(1); 
+    transition: transform 0.2s linear;
+    top:  -160px;
+    left: 520px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -16px -162px;
+	width: 129px;
+	height: 202px;
+    z-index: 1;
+}
+
+/* Stands for drums */
+#drumKitDrumStands div:nth-of-type(1){
+    top:  -105px;
+    left: 320px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -499px -244px;
+	width: 100px;
+	height: 123px;
+    z-index: 1;
+}
+
+#drumKitDrumStands div:nth-of-type(2){
+    top:  -210px;
+    left: 450px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -22px -189px;
+	width: 90px;
+	height: 138px;
+    z-index: 2;
+}
+
+/* hit hats  */
+#drumKitCymbals div:nth-of-type(1){
+    transition: transform 0.2s linear;
+    transform: skewY(0deg);
+    top:  -180px;
+    left: 615px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -159px -189px;
+	width: 109px;
+	height: 67px;
+    z-index: 3;
+}
+/* Ride Cymbal */
+#drumKitCymbals div:nth-of-type(2){
+    transition: transform 0.2s linear;
+    transform: skewY(0deg);
+    top:  -250px;
+    left: 270px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -161px -265px;
+	width: 117px;
+	height: 87px;
+    z-index: 2;
+}
+#drumKitCymbals div:nth-of-type(3){
+    transition: transform 0.2s linear;
+    transform: skewY(0deg);
+    top:  -300px;
+    left: 350px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -321px -120px;
+	width: 123px;
+	height: 63px;
+    z-index: 1;
+}
+#drumKitCymbals div:nth-of-type(4){
+    transition: transform 0.2s linear;
+    transform: skewY(0deg);
+    top:  -300px;
+    left: 500px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet1.png') no-repeat -321px -120px;
+	width: 123px;
+	height: 63px;
+    z-index: 1;
+}
+
+
+/* Stands */
+#drumKitCymbalStands div:nth-of-type(1){
+    top:  -220px;
+    left: 600px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -368px -88px;
+	width: 117px;
+	height: 278px;
+    z-index: 1;
+}
+#drumKitCymbalStands div:nth-of-type(2){
+    top:  -220px;
+    left: 260px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -242px -114px;
+	width: 107px;
+	height: 257px;
+    z-index: 1;
+}
+#drumKitCymbalStands div:nth-of-type(3){
+    top:  -260px;
+    left: 370px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -131px -144px;
+	width: 103px;
+	height: 230px;
+    z-index: 0;
+}
+#drumKitCymbalStands div:nth-of-type(4){
+    top:  -260px;
+    left: 520px;
+    position: absolute;
+	background: url('images/drumgame_spritesheet2.png') no-repeat -131px -144px;
+	width: 103px;
+	height: 230px;
+    z-index: 0;
+}
+
+
+/* /////////////////////////////////////////////////////////  QUIZ //////////////////////////////////////// */
+#drumQuiz legend{font-size: 2em; text-align: center;}
+#drumQuiz label{ font-size: 1.6em; padding: 20px;}
+#drumQuiz fieldset{text-align: center;}
+#nextQn, #btnSubmit {display: none; margin: 0 auto; padding: 10px 30px;}
+#page5 h3 {text-align: center; background-color: blue;}
+
+/* General */
+h1, h2 {text-decoration: underline;}
+p{font-size: 1.3em;}
+
+
+/* ball */
+#ball {
+    background: cyan;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width:800px){
+
+    /* Testing  */
+    body {background-color:red;}
+    
+    /* NAV BAR  */
+    /* make the nav bar position overlay?? */
+    #navbar {
+        top: 0px;
+        position: fixed; 
+        height: 100%;
+        width: 10%;
+        opacity: 0.7;
+    }
+    #navbar ul{
+        display: none;
+        width: 100%;
+        /* height: 200px; */
+        height: 100%;
+        position: relative;
+        background-color: peachpuff;
+        border-radius: 0px;
+        margin: 0;
+    }   
+    #navbar ul li button {
+        font-size: 1.5em;
+        width: 100%;
+        display: block;
+        border-radius: 0px;
+        background-color: papayawhip;
+    }
+    #navbar > ul li {
+        padding: 10px;
+        margin: auto 2px;
+        display: block;
+        background-color: papayawhip;
+        border: 5px rgb(228, 195, 141) solid;
+    }
+    #hamBtn{
+        font-size: 2em;
+        display:block; 
+        width: 100%;
+    }
+
+    h1{font-size: 1em;}
+    p{font-size: 0.9em;}
+
+    /* HISTORY PAGE */
+    /* Early origins and Troubled Times  */
+    #page1{background:red; text-align:center;}
+    #historyPart1 h2, #historyPart2 h2{grid-row: 1; padding-top: 20px;}
+    
+    /* part 1 */
+    #historyPart1 figure:nth-of-type(1) {grid-row: 2; grid-column: 1 !important;}
+    #historyPart1 figure:nth-of-type(2) {grid-row: 3;  grid-column: 1 !important;}
+    #historyPart1 p:nth-of-type(1) {grid-row: 2 !important; grid-column: 2 /4 !important;}
+    #historyPart1 p:nth-of-type(2) {grid-row: 3 !important; grid-column: 2 /4  !important;}
+
+    /* part 2 */
+    #historyPart2 figure:nth-of-type(1) {grid-row: 2; grid-column: 1 !important;}
+    #historyPart2 figure:nth-of-type(2) {grid-row: 2;  grid-column: 3 !important;}
+    #historyPart2 p:nth-of-type(1) {grid-row: 3; grid-column: 1/4 !important;}
+    #historyPart2 figure:nth-of-type(3) {grid-row: 4; grid-column: 1 !important;}
+    #historyPart2 figure:nth-of-type(4) {grid-row: 4;  grid-column: 3 !important;}
+    #historyPart2 p:nth-of-type(2) {grid-row: 5;  grid-column: 1/4 !important;}
+
+    /* part 3 */
+    #historyPart3 figure:nth-of-type(1) {grid-row: 2; grid-column: 1 !important;}
+    #historyPart3 p:nth-of-type(1) {grid-row: 2; grid-column: 2/4 !important;}
+    #historyPart3 figure:nth-of-type(2) {grid-row: 3; grid-column: 1 !important;}
+    #historyPart3 p:nth-of-type(2) {grid-row: 3; grid-column: 2/4 !important;}
+    #historyPart3 figure:nth-of-type(3) {grid-row: 4; grid-column: 1 !important;}
+    #historyPart3 p:nth-of-type(3) {grid-row: 4; grid-column: 2/4 !important;}
+
+    /* part 4  */
+    #historyPart4 p {flex: 100%;}
+    #historyPart4 div {flex: 100%;}
+
+    /* DRUM PARTS  PAGE */
+    #drumkitPart2 figure:nth-of-type(1) {grid-row: 2; grid-column: 1 !important;}
+    #drumkitPart2 figure:nth-of-type(2) {grid-row: 3; grid-column: 1 !important;}
+    #drumkitPart2 p:nth-of-type(1) {grid-row: 2; grid-column: 3 !important;}
+    #drumkitPart2 p:nth-of-type(2) {grid-row: 3; grid-column: 3 !important;}
+
+    #drumkitPart3 figure:nth-of-type(1) {grid-row: 2; grid-column: 1 !important;}
+    #drumkitPart3 figure:nth-of-type(2) {grid-row: 3; grid-column: 1 !important;}
+    #drumkitPart3 p:nth-of-type(1) {grid-row: 2/4; grid-column: 2/4 !important;}
+
+    #drumkitPart4 h3:nth-of-type(1) {grid-row: 2; grid-column: 1 !important;}
+    #drumkitPart4 figure:nth-of-type(1) {grid-row: 3; grid-column: 1 !important;}
+    #drumkitPart4 p:nth-of-type(1) {grid-row: 3; grid-column: 2/4 !important;}
+
+    #drumkitPart4 h3:nth-of-type(2) {grid-row: 4; grid-column: 1 !important;}
+    #drumkitPart4 figure:nth-of-type(2) {grid-row: 5; grid-column: 1 !important;}
+    #drumkitPart4 p:nth-of-type(2) {grid-row: 5; grid-column: 2/4 !important;}
+
+    #drumkitPart4 h3:nth-of-type(3) {grid-row: 6; grid-column: 1 !important;}
+    #drumkitPart4 > div {grid-row: 7; grid-column: 1 !important;}
+    #drumkitPart4 p:nth-of-type(3) {grid-row: 7; grid-column: 2/4 !important;}
+
+    #drumkitPart5 p:nth-of-type(1) {grid-row: 2; grid-column: 1/4 !important;}
+
+    #drumkitPart5 h3:nth-of-type(1) {grid-row: 3; grid-column: 1/4 !important;}
+    #drumkitPart5 figure:nth-of-type(1) {grid-row: 4; grid-column: 1 !important;}
+    #drumkitPart5 p:nth-of-type(2) {grid-row: 4; grid-column: 2/4 !important;}
+
+    #drumkitPart5 h3:nth-of-type(2) {grid-row: 5; grid-column: 1/4 !important;}
+    #drumkitPart5 figure:nth-of-type(2) {grid-row: 6; grid-column: 1 !important;}
+    #drumkitPart5 p:nth-of-type(3) {grid-row: 6; grid-column: 2/4 !important;}
+
+    #drumkitPart5 h3:nth-of-type(3) {grid-row: 7; grid-column: 1/4 !important;}
+    #drumkitPart5 figure:nth-of-type(3) {grid-row: 8; grid-column: 1 !important;}
+    #drumkitPart5 p:nth-of-type(4) {grid-row: 8; grid-column: 2/4 !important;}
+
+
+    /*   MUSIC THEORY  */
+    #theoryPart1Btn1, #theoryPart1Btn2, #theoryPart1Btn3 {display: none;}
+    #theoryPart1 > p {grid-column: 1/4 !important;}
+    .theoryDrums {display: block !important;}
+    .theoryDrums {display: block !important;}
+    .theoryCymbals {display: block !important;} 
+    .theoryCymbals {display: block !important;}
+    .theoryModify {display: block !important;}
+    .theoryModify {display: block !important;}
+
+    #theoryPart2 > div {margin: 25px 100px;}
+
+    #theoryPart3 > p:nth-of-type(1) {grid-column: 1/4 !important;}
+
+    #theoryPart3 > p:nth-of-type(2) {grid-row: 3; grid-column: 1/3 !important;}
+    #theoryPart3 > p:nth-of-type(5) {grid-row: 3; grid-column: 3 !important;}
+
+    #theoryPart3 > p:nth-of-type(3) {grid-row: 4; grid-column: 1/3 !important;}
+    #theoryPart3 > p:nth-of-type(6) {grid-row: 4; grid-column: 3 !important;}
+
+    #theoryPart3 > p:nth-of-type(4) {grid-row: 5; grid-column: 1/3 !important;}
+    #theoryPart3 > p:nth-of-type(7) {grid-row: 5; grid-column: 3 !important;}
+
+    #theoryPart4 > p:nth-of-type(1) {grid-column: 1/4 !important;}
+    #theoryPart4 > div:nth-of-type(1) {grid-row: 3; grid-column: 1 !important;}
+    #theoryPart4 > div:nth-of-type(2) {grid-row: 4; grid-column: 1 !important;}
+    #theoryPart4 > div:nth-of-type(3) {grid-row: 5; grid-column: 1 !important;}
+
+    #theoryPart4 > p:nth-of-type(2) {grid-row: 3; grid-column: 2/4 !important;}
+    #theoryPart4 > p:nth-of-type(3) {grid-row: 4; grid-column: 2/4 !important;}
+    #theoryPart4 > p:nth-of-type(4) {grid-row: 5; grid-column: 2/4 !important;}
+
+    /*  MUSIC GENRE   */    
+    #page4 .flexportion.responsiveVid{
+        flex: 100%; 
+        /* switch back to full screen width */
+        padding-top: 56.25% !important;
+        margin: 20px 50px;
+    }
+
+    /* TAIKO GAME */
+    #theoryPart5{
+        margin: 0 auto;
+        width: 60%;
+        height: 70vh;   
+    }
+
+    #taikoTarget{
+        top: 80% !important; 
+        left: 37% !important;
+    }
+
+    #taikoSprite, #taikoGame{width: 100%;margin: 0 auto;}
+    #taikoGame button{width: 100%;height: 50px;}
+    #taikoButtonMode {display: block;}
+    #taikoGame > p {display: none;}
+
+   
+
+
+    /* //////////// QR code */
+
+    #qrCodeImg{display:none;} /*hide QRfle
+    code when its mobile size */
+
+    /* h1::after{content:"(mobile)";} */
+}
+
+
+
+
+/* /////////////////////////////////////////////////// TESTING /////////////////////////////////// */
+#testingPage3 {
+    background-color: red;
+}
+
+
+#sprite {
+	background: url('images/testmerge3.png'); 
+    background-repeat:  no-repeat;
+
+}
+
+
+.sprite1{
+    background-position: -96px -60px;
+	width: 818px;
+	height: 640px;
+}
+
+
+.sprite2 {
+	background-position: -1078px -21px;
+	width: 740px;
+	height: 733px;
+}
+
+.sprite3 {
+	background-position: -1872px -39px;
+	width: 624px;
+	height: 710px;
+}
+
+
