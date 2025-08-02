@@ -14,7 +14,7 @@ h1 {text-align: center; background-color: lightblue; font-size: 1.4em;}
 
 /* set fixed height width use da RWD to adjust  */
 #navbar { 
-    /* background-color: blue; */
+    background-color: lightblue;
     text-align: center; 
     width: 100%; 
     top: 10px; 
@@ -613,11 +613,17 @@ h1 {text-align: center; background-color: lightblue; font-size: 1.4em;}
 #drumQuiz label{ font-size: 1.6em; padding: 20px;}
 #drumQuiz fieldset{text-align: center;}
 #nextQn, #btnSubmit {display: none; margin: 0 auto; padding: 10px 30px;}
-#page5 h3 {text-align: center; background-color: blue;}
+#page5 h3 {text-align: center; background-color: blue; height: 300px;}
 
 /* General */
 h1, h2 {text-decoration: underline;}
 p{font-size: 1.3em;}
+#btnFS {position: absolute; 
+    top: 1vh;
+    left: 97vw;
+    font-size: 1.5em;
+    z-index: 1000;
+}
 
 
 /* ball */
@@ -824,30 +830,5 @@ p{font-size: 1.3em;}
 }
 
 
-#sprite {
-	background: url('images/testmerge3.png'); 
-    background-repeat:  no-repeat;
-
-}
-
-
-.sprite1{
-    background-position: -96px -60px;
-	width: 818px;
-	height: 640px;
-}
-
-
-.sprite2 {
-	background-position: -1078px -21px;
-	width: 740px;
-	height: 733px;
-}
-
-.sprite3 {
-	background-position: -1872px -39px;
-	width: 624px;
-	height: 710px;
-}
 
 

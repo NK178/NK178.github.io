@@ -877,16 +877,22 @@ function NextQn(){
 
 /////////////////////////////// WINDOW FUNCTIONALITY /////////////////////////
 const btnFS=document.querySelector("#btnFS");
-const btnWS=document.querySelector("#btnWS");
-btnFS.addEventListener("click",enterFullscreen);
-btnWS.addEventListener("click",exitFullscreen);
-function enterFullscreen() { //must be called by user generated event
-document.documentElement.requestFullscreen();
-}
-function exitFullscreen() {
-document.exitFullscreen();
-}
+var isFullScreen = false;
 
+btnFS.addEventListener("click",function(){
+    HandleFullScreen();
+});
+
+function HandleFullScreen(){
+    if (isFullScreen) {
+        isFullScreen = false;
+        document.exitFullscreen();
+    }
+    else{
+        isFullScreen = true;
+        document.documentElement.requestFullscreen();
+    }
+}
 
 
 
