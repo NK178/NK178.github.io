@@ -109,9 +109,11 @@ theoryModifyBtn.addEventListener("click", function () {
     show(".theoryModify",allNotations);
 });
 
+
 hideall(allpages);
 hideall(allNotations);
-
+//////////////////////////////////////// SHOW FIRST PAGE FIRST 
+show("#page6",allpages);
 
 /////////////////////////////////////////////// NAV BAR
 const menubtn = document.getElementById("hamBtn");
@@ -149,7 +151,6 @@ const newsLetterInputs = document.querySelectorAll("#newsletter input");
 const newsLetterTextInputs = newsLetterForm.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
 const newsLetterRadioInputs = newsLetterForm.querySelectorAll('input[type="radio"]');
 const newsLetterCheckboxInputs = newsLetterForm.querySelectorAll('input[type="checkbox"]');
-
 
 
 newsLetterBtn.addEventListener("click", function () {
@@ -277,7 +278,7 @@ taikoGameBtn.addEventListener('click',function() {
         countDownDiv.id = 'taikoCountDown';
         countDownDiv.style.position = 'absolute';
         countDownDiv.style.left = 50 +"%";
-        countDownDiv.style.top = "3vh";
+        countDownDiv.style.top = "5vh";
         countDownDiv.style.fontSize = "2em";
         countDownDiv.innerHTML = "3";
         taikoGame.appendChild(countDownDiv);
@@ -300,7 +301,7 @@ taikoGameBtn.addEventListener('click',function() {
             timerDiv.id = 'taikoTimer';
             timerDiv.style.position = 'absolute';
             timerDiv.style.left = 50 +"%";
-            timerDiv.style.top = "1vh";
+            timerDiv.style.top = "4vh";
             timerDiv.style.fontSize = "2em";
             timerDiv.innerHTML = maxGameTime - gameTimer;
             taikoGame.appendChild(timerDiv);
@@ -314,13 +315,31 @@ taikoGameBtn.addEventListener('click',function() {
         for (let c of allActiveCircles){
             RemoveCircle(c);
         }
+        // Clear the timer interval if it's running
+        if (gameTimerInterval) {
+            clearInterval(gameTimerInterval);
+            gameTimerIntervalActive = false;
+            gameTimerInterval = null; 
+        }
+        // Remove timer div if it exists
+        if (timerDiv) {
+            timerDiv.remove();
+            timerDiv = null;
+        }
+        TargetState.CURRENT = TargetState.NONE;
+        taikoScore.style.display = 'none';
         totalActiveCircles = 0;
         circleIDTracker = 0;
         spawnTime = 0;
         isTimeoutActive = false;
         gameScore = 0;
         gameTimer = 0;
-        taikoScore.style.display = 'none';
+        // taikoScore.style.display = 'none';
+        allActiveScorePoints = document.querySelectorAll(".taikoScorePoint");
+        for (let scorePoint of allActiveScorePoints) {
+            scorePoint.remove();
+        }
+        allActiveCircles = document.querySelectorAll(".taikoCircle");
     }
 });
 
@@ -642,23 +661,22 @@ function UpdatePlayerScore(){
     taikoScore.innerHTML = gameScore;
 }
 
-
-//for end game timer 
 function UpdateGameTimer(){
-
-    if (gameStart) {
-        //set up the interval 
-        if (!gameTimerIntervalActive) {
+    if (gameStart && timerDiv) { 
+        if (!gameTimerIntervalActive && !gameTimerInterval) {
             gameTimerInterval = setInterval(function() {
                 gameTimer++;
-            },1000);
+                if (timerDiv) {
+                    timerDiv.innerHTML = maxGameTime - gameTimer;
+                }
+                if (gameTimer >= maxGameTime){
+                    clearInterval(gameTimerInterval);
+                    gameTimerInterval = null;
+                    gameTimerIntervalActive = false;
+                    taikoGameBtn.click();
+                }
+            }, 1000);
             gameTimerIntervalActive = true;
-        }
-        timerDiv.innerHTML = maxGameTime - gameTimer;
-        if (gameTimer > maxGameTime){
-            taikoGameBtn.click();
-            timerDiv.remove();
-            gameTimerIntervalActive = false;
         }
     }
 }
@@ -789,7 +807,7 @@ const quizGame = document.getElementById("drumQuiz");
 var isQuizActive = true;
 var currentQnIndex = 1;
 var score=0;
-var testAns=["Tokyo", "Red"];
+var testAns=["William-F Ludwig", "1909","China","Pipes and Tabor","Hi hat","1","Accent"];
 
 //start by hiding everything and showing only first question 
 show("#drumQuiz fieldset:nth-of-type(1)", listOfQns);
@@ -823,6 +841,7 @@ function CheckQuiz(quizAnswers, quizScore) {
             quizScore++;
         i++;
     }
+    scorebox.style.display = "block";
     scorebox.innerHTML="Score:"+quizScore;
     if (isQuizActive){
         quizGame.style.display = 'none';
@@ -833,6 +852,8 @@ function CheckQuiz(quizAnswers, quizScore) {
         quizGame.style.display = 'block';
         btnSubmit.innerHTML= "Submit Quiz";
         btnSubmit.style.display = 'none';
+        scorebox.style.display = "none";
+        scorebox.innerHTML="";
         currentQnIndex = 1;
         score = 0;
         show("#drumQuiz fieldset:nth-of-type(1)", listOfQns);
@@ -868,7 +889,7 @@ function canGoNextQn(){
 }
 
 function NextQn(){
-    if (currentQnIndex + 1 < testAns.length){
+    if (currentQnIndex + 1 <= testAns.length){
         currentQnIndex++;
         show(`#drumQuiz fieldset:nth-of-type(${currentQnIndex})`, listOfQns);
     }
