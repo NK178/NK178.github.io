@@ -208,7 +208,7 @@ function ResetForm(){
 // Add event listeners to all the inputs so that can detect form detail change
 for (let i = 0; i < newsLetterInputs.length; i++){
     newsLetterInputs[i].addEventListener("change",function () {
-        UpdateButton(IsNewsLetterFormFilled,submitformBtn);
+        UpdateButton(IsNewsLetterFormFilled(),submitformBtn);
     });
 }
 
