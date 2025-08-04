@@ -1,0 +1,13 @@
+{   "name": "02_Ainsley_241916Q_A2",
+    "short_name": "02_241916Q",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#00FF00",
+    "icons": [
+        { "src": "images/apple-touch-icon.png",
+        "sizes": "64x64",
+        "type": "image/png"
+        }
+    ]
+}
