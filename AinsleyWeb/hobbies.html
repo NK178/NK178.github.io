@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang ="EN">
+
+    <head> 
+        <meta charset ="UTF-8">
+        <link href="css/style.css" type="text/css" rel="stylesheet" />
+        <meta name ="viewport" content = "width=device-width, initial-scale=1.0"> 
+        <title> Hobbies </title>
+    </head>
+
+    <body id="hobbiesbody"> 
+        <!-- Header -->
+        <header class = "chinesebox"> <p> 雪花飘飘 北风萧萧 天地 一片 苍茫 一翦寒梅 傲立雪中 只为 伊人 飘香 爱我所爱 无怨无悔 此情 长留 心间 </p> </header>
+
+        <!-- Nav page  -->
+        <nav class ="navbar">
+            <p class ="name"> Created by Ainsley Ngern 鄞毅涵  </p>
+            <div> 
+                <ul> 
+                    <li> <a href = "index.html"> Index </a>         </li>
+                    <li> <a href = "education.html"> Education </a> </li>
+                    <li> <a href = "hobbies.html"> Hobbies</a>      </li>
+                    <li> <a href = "aboutme.html"> About me </a>    </li>
+                </ul> 
+            </div>
+        </nav>  
+        
+        <!-- All hobbies in here (Gaming, Sports, Chess) -->
+        <main id = "hobbiespage"> 
+            
+            <header> 
+                <h1 class="text"> My Hobbies  </h1>
+                <p class="text"> Hobbies are great source of relief and enjoyment for one. Here are some of my favourites: </p>            
+            </header>
+
+            <section id = "hobbies"> 
+
+                <!-- Gaming section -->
+                <article id="gaming"> 
+                    <figure>  
+                        <img width="500" src = Images/TF2gameplay.jpg alt="TF2 Gameplay" title="I am ze spy">
+                    </figure> 
+                    <div> 
+                        <h2 class="text hobbytext"> Gaming </h2> 
+                        <p class="text hobbytext">
+                            Gaming is a easy way to stress relief. Just hop on any game and just play, it helps
+                            to keep the mind blank  . 
+                            <br> Avoid getting too frustrated at your games. 
+                            <br>My favourites is Team Fortress 2. My favourite class is the Demoman.
+                        </p>
+                    </div>
+                </article>
+
+
+                <!-- Sports section -->
+                <article id="sports">
+                    <figure> 
+                        <img width="500" src = Images/footballgameplay.jpg alt="Football Gameplay" title="Finesse shot"> 
+                       <img width="500" src = Images/badmintongameplay.jpg alt="Badminton Gameplay" title="Backhand serve">
+                    </figure>
+                    <div> 
+                        <h2 class="text hobbytext"> Sports</h2>
+                        <p class="text hobbytext"> Time and time again, Sports have shown to release dopamine and improves one's cardiovascular health.
+                            <br> My favourite sports are Badminton and Football
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Chess section -->
+                <article id="chess"> 
+                    <figure>
+                        <img class = "hobbiesimg" width="500" src = Images/chessgameplay.jpg alt="Chess Gameplay" title="Vienna OP">
+                    </figure>
+                    <div> 
+                        <h2 class="text hobbytext"> Chess </h2>
+                        <p class="text hobbytext"> Chess both trains the cognitive function in our brains while letting other parts rest
+                            <br> My favourite chess opening is the Vienna Game.
+                        </p>
+                        <a href="https://lichess.org/study/G4gISY53/CG95vEYP" target="_blank"> Vienna Game Guide</a> 
+                    </div>
+
+
+                </article>
+            </section>
+
+
+        </main>
+
+            <!-- BROKEN currently  -->
+            <!-- Additional chess stuff -->          
+            <aside id = "chessaside"> 
+
+                <h1 class="text hobbytext"> Chess opening theory image map </h1> 
+
+                <div> 
+                    <figure id = "high-res-chessboard"> 
+                        <img width="600" src="Images/chessboard-highres.png" usemap="#high-image-map" alt="Chess board" Title="Chess board">
+
+                        <map name="high-image-map">
+                            <area target="_blank" alt="C4 Opening" title="C4 Opening" href="https://lichess.org/study/h4GuSZh3/ZPVI3tJF" coords="150,451,224,526" shape="rect">
+                            <area target="_blank" alt="D4 Opening" title="D4 Opening" href="https://lichess.org/study/G0kM4oDK/RjV7ms3U" coords="225,452,297,528" shape="rect">
+                            <area target="_blank" alt="E4 Opening" title="E4 Opening" href="https://lichess.org/study/G4gISY53/CG95vEYP" coords="299,452,375,527" shape="rect">
+                        </map>
+                    </figure>
+
+                    <!-- Low res image with image mapping -->
+                    <figure id = "low-res-chessboard"> 
+                        <img width="300" src="Images/chessboard-lowres.png" usemap="#low-image-map" alt="Chess board" Title="Chess board">
+                        <map name="low-image-map">
+                            <area target="_blank" alt="C4 Opening" title="C4 Opening" href="https://lichess.org/study/h4GuSZh3/ZPVI3tJF" coords="76,225,112,263" shape="rect">
+                            <area target="_blank" alt="D4 Opening" title="D4 Opening" href="https://lichess.org/study/G0kM4oDK/RjV7ms3U" coords="113,227,150,263" shape="rect">
+                            <area target="_blank" alt="E4 Opening" title="E4 Opening" href="https://lichess.org/study/G4gISY53/CG95vEYP" coords="150,224,187,263" shape="rect">
+                        </map>
+                    </figure>
+                </div>
+
+                <div> 
+                    <p class="text hobbytext"> Click on either the C, D or E pawns to learn about their openings
+                        <br> click on the pawns to see their openings!
+                    </p>
+                </div>
+
+
+
+            </aside>
+
+        <!-- End -->
+        <footer id="endfooter"> © 2025 Ainsley Ngern </footer>
+
+    </body>
+</html>
