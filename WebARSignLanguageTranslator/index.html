@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebAR Sign Language Translator</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+
+
+    <!-- Style to move elsewhere next time  -->
     <style>
       :root {
         --bg: #f5f7fb;
@@ -68,5 +76,37 @@
         <button class="btn" type="button">Get Started</button>
       </section>
     </main>
+
+
+
+    <!-- Test Camera  -->
+    <video id="camera-stream" autoplay playsinline style="width: 100%; max-width: 500px;"></video>
+
+        <script>
+        async function startCamera() {
+            try {
+                const constraints = {
+                    video: {
+                        // Use 'environment' for the back camera, 'user' for the selfie camera
+                        facingMode: "environment" 
+                    },
+                    audio: false // Set to true if you also need the microphone
+                };
+
+                // Request user permission for the camera
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                
+                // Bind the stream to the HTML video element
+                const videoElement = document.getElementById('camera-stream');
+                videoElement.srcObject = stream;
+            } catch (error) {
+                console.error("Error accessing the camera: ", error);
+                alert("Could not access camera. Ensure you are using HTTPS and have given permission.");
+            }
+        }
+
+        // Start the camera when the page loads
+        window.addEventListener('load', startCamera);
+    </script>
   </body>
 </html>
