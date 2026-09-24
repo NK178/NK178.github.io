@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediaPipe Hand Tracking Test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      position: relative;
+      width: 640px;
+      max-width: 100%;
+      aspect-ratio: 4 / 3;
+    }
+    video, canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      transform: scaleX(-1); /* Mirror camera feed for selfie view */
+    }
+    #status {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  </style>
+
+  <!-- Load MediaPipe Hands and Camera utilities via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <h1>MediaPipe Hand Tracking Test</h1>
+  
+  <div class="container">
+    <video id="webcam" autoplay playsinline></video>
+    <canvas id="output_canvas"></canvas>
+  </div>
+
+  <div id="status">Loading MediaPipe Hands...</div>
+
+  <script>
+    const videoElement = document.getElementById('webcam');
+    const canvasElement = document.getElementById('output_canvas');
+    const canvasCtx = canvasElement.getContext('2d');
+    const statusDiv = document.getElementById('status');
+
+    // 1. Initialize MediaPipe Hands
+    const hands = new Hands({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+    });
+
+    hands.setOptions({
+      maxNumHands: 2,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+
+    // 2. Process tracking results
+    hands.onResults((results) => {
+      // Set canvas sizing to match incoming camera frames
+      canvasElement.width = videoElement.videoWidth;
+      canvasElement.height = videoElement.videoHeight;
+
+      // Clear previous frame canvas overlay
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+      if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+        statusDiv.innerText = `Tracking ${results.multiHandLandmarks.length} Hand(s)`;
+
+        for (const landmarks of results.multiHandLandmarks) {
+          // Draw skeleton connecting lines
+          drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
+          // Draw joint nodes (21 landmarks)
+          drawLandmarks(canvasCtx, landmarks, { color: '#FF0000', lineWidth: 2, radius: 4 });
+        }
+      } else {
+        statusDiv.innerText = 'No hands detected. Hold your hand in front of the camera.';
+      }
+    });
+
+    // 3. Request webcam stream & feed to MediaPipe loop
+    const camera = new Camera(videoElement, {
+      onFrame: async () => {
+        await hands.send({ image: videoElement });
+      },
+      width: 640,
+      height: 480
+    });
+
+    camera.start().then(() => {
+      statusDiv.innerText = 'Camera active. Detecting...';
+    }).catch(err => {
+      statusDiv.innerText = 'Error accessing webcam: ' + err.message;
+    });
+  </script>
+
+</body>
+</html>

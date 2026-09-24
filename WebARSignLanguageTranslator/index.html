@@ -69,26 +69,96 @@
     </style>
   </head>
   <body>
-    <main class="container">
+    <!-- <main class="container">
       <section class="card">
         <h1>Hello, world!</h1>
         <p>This is a quick HTML starter file for your WebAR Sign Language Translator project.</p>
         <button class="btn" type="button">Get Started</button>
       </section>
-    </main>
+    </main> -->
+
+    <div class="container">
+      <video id="webcam" autoplay playsinline></video>
+      <canvas id="output_canvas"></canvas>
+    </div>
+
+    <div id="status">Loading MediaPipe Hands...</div>
 
 
+    <script> 
+
+      const videoElement = document.getElementById('webcam');
+      const canvasElement = document.getElementById('output_canvas');
+      const canvasCtx = canvasElement.getContext('2d');
+      const statusDiv = document.getElementById('status');
+
+      // 1. Initialize MediaPipe Hands
+      const hands = new Hands({
+        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+      });
+
+      hands.setOptions({
+        maxNumHands: 2,
+        modelComplexity: 1,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+      });
+
+
+        
+      // 2. Process tracking results
+      hands.onResults((results) => {
+        // Set canvas sizing to match incoming camera frames
+        canvasElement.width = videoElement.videoWidth;
+        canvasElement.height = videoElement.videoHeight;
+
+        // Clear previous frame canvas overlay
+        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+        if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+          statusDiv.innerText = `Tracking ${results.multiHandLandmarks.length} Hand(s)`;
+
+          for (const landmarks of results.multiHandLandmarks) {
+            // Draw skeleton connecting lines
+            drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
+            // Draw joint nodes (21 landmarks)
+            drawLandmarks(canvasCtx, landmarks, { color: '#FF0000', lineWidth: 2, radius: 4 });
+          }
+        } else {
+          statusDiv.innerText = 'No hands detected. Hold your hand in front of the camera.';
+        }
+      });
+
+          // 3. Request webcam stream & feed to MediaPipe loop
+      const camera = new Camera(videoElement, {
+        onFrame: async () => {
+          await hands.send({ image: videoElement });
+        },
+        width: 640,
+        height: 480
+      });
+
+      camera.start().then(() => {
+        statusDiv.innerText = 'Camera active. Detecting...';
+      }).catch(err => {
+        statusDiv.innerText = 'Error accessing webcam: ' + err.message;
+      });
+
+
+    </script>
+
+    
 
     <!-- Test Camera  -->
-    <video id="camera-stream" autoplay playsinline style="width: 100%; max-width: 500px;"></video>
+    <!-- <video id="camera-stream" autoplay playsinline style="width: 100%; max-width: 500px;"></video> -->
 
-        <script>
+        <!-- <script>
         async function startCamera() {
             try {
                 const constraints = {
                     video: {
                         // Use 'environment' for the back camera, 'user' for the selfie camera
-                        facingMode: "environment" 
+                        facingMode: "user" 
                     },
                     audio: false // Set to true if you also need the microphone
                 };
@@ -107,6 +177,6 @@
 
         // Start the camera when the page loads
         window.addEventListener('load', startCamera);
-    </script>
+    </script> -->
   </body>
 </html>
