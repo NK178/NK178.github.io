@@ -1,98 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebAR Sign Language Translator</title>
 
+    <!-- CDN for mediapipe library -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 
-
-
-    <!-- Style to move elsewhere next time  -->
-    <style>
-      :root {
-        --bg: #f5f7fb;
-        --card: #ffffff;
-        --text: #1f2937;
-        --muted: #6b7280;
-        --primary: #2563eb;
-        --border: #dbe3f0;
-      }
-
-      * { box-sizing: border-box; }
-
-      body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.5;
-      }
-
-      .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 40px 20px;
-      }
-
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-      }
-
-      h1 {
-        margin-top: 0;
-        font-size: clamp(2rem, 4vw, 3rem);
-      }
-
-      p {
-        color: var(--muted);
-      }
-
-      .btn {
-        display: inline-block;
-        padding: 12px 20px;
-        background: var(--primary);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        text-decoration: none;
-        cursor: pointer;
-        font-weight: 600;
-      }
-    </style>
   </head>
+
   <body>
-    <!-- <main class="container">
-      <section class="card">
-        <h1>Hello, world!</h1>
-        <p>This is a quick HTML starter file for your WebAR Sign Language Translator project.</p>
-        <button class="btn" type="button">Get Started</button>
-      </section>
-    </main> -->
 
     <div class="container">
+      <video class="input_video"></video>
+      <canvas class="output_canvas" width="1280px" height="720px"></canvas>
+    </div>
+
+    <script> 
+      
+      const videoElement = document.getElementsByClassName('input_video')[0];
+      const canvasElement = document.getElementsByClassName('output_canvas')[0];
+      const canvasCtx = canvasElement.getContext('2d');
+
+      function onResults(results){
+        canvasCtx.save(); 
+        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height); 
+        canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height); 
+        
+        if (results.multiHandLandmarks) {
+          for (const landmarks of results.multiHandLandmarks) {
+            drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, { color: '#00FF00', lineWidth: 5 });
+            drawLandmarks(canvasCtx, landmarks, { color: '#FF0000', lineWidth: 2, radius: 4 });
+          }
+        }
+      }
+      canvasCtx.restore(); 
+
+      const hands = new Hands({locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`; 
+      }})
+
+      hands.setOptions({
+        maxNumHands: 2, 
+        modelComplexity: 1, 
+        minDetectionConfidence: 0.5, 
+        minTrackingConfidence: 0.5
+      })
+      hands.onResults(onResults); 
+
+      const camera = new Camera(videoElement, {
+        onFrame: async () => {
+          await hands.send({image: videoElement}); 
+        },
+        width: 1280, 
+        height: 720
+      });
+      videoElement.style.display = 'none';
+      camera.start(); 
+    </script>
+
+
+    <!-- <div class="container">
       <video id="webcam" autoplay playsinline></video>
       <canvas id="output_canvas"></canvas>
     </div>
 
     <div id="status">Loading MediaPipe Hands...</div>
+ -->
 
-
-    <script> 
+    <!-- <script> 
 
       const videoElement = document.getElementById('webcam');
       const canvasElement = document.getElementById('output_canvas');
       const canvasCtx = canvasElement.getContext('2d');
       const statusDiv = document.getElementById('status');
 
-      // 1. Initialize MediaPipe Hands
       const hands = new Hands({
         locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
       });
@@ -147,7 +133,7 @@
 
     </script>
 
-    
+     -->
 
     <!-- Test Camera  -->
     <!-- <video id="camera-stream" autoplay playsinline style="width: 100%; max-width: 500px;"></video> -->
@@ -180,3 +166,62 @@
     </script> -->
   </body>
 </html>
+
+
+
+    <!-- Style to move elsewhere next time  -->
+    <!-- <style>
+      :root {
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --primary: #2563eb;
+        --border: #dbe3f0;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      p {
+        color: var(--muted);
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 20px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: 600;
+      }
+    </style> -->
