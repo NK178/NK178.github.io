@@ -3,14 +3,23 @@
 # Mediapipe to track hand landmarks, pandas for xyz coords and what not 
 import cv2 
 import mediapipe as mp
-import tensorflow as tf 
+import pandas as pd 
+import os
 
+# import tensorflow as tf 
 
 
 isPaused = False; 
+isOutputShowed = False; 
+isHandAnnotated = False; 
+
 
 #initialize with new version of media pipeline, need ref to that hand_landmarker.task)  
-baseOptions = mp.tasks.BaseOptions(model_asset_path='hand_landmarker.task')
+baseOptions = mp.tasks.BaseOptions(
+    model_asset_path='hand_landmarker.task',
+    delegate=mp.tasks.BaseOptions.Delegate.CPU                 
+)
+
 options = mp.tasks.vision.HandLandmarkerOptions( 
     base_options=baseOptions,
     running_mode= mp.tasks.vision.RunningMode.VIDEO,
@@ -61,7 +70,7 @@ cap = cv2.VideoCapture(videoPath)
 if not cap.isOpened():
     print(f"Error: Could not open video file {videoPath}")
     exit()
-frame_count = 0
+# frame_count = 0
 while cap.isOpened(): 
 
 
@@ -70,9 +79,9 @@ while cap.isOpened():
         if not ret: 
             break
 
-        frame_count += 1
-        if frame_count % 2 != 0:  # Process every 2nd frame
-            continue
+        # frame_count += 1
+        # if frame_count % 2 != 0:  # Process every 2nd frame
+        #     continue
 
         frame = cv2.resize(frame, (640, 480))
 
@@ -94,32 +103,43 @@ while cap.isOpened():
             for lm in singularHandLandmark:
                 row.extend([lm.x, lm.y, lm.z])
 
-            # AnnotateFrame(frame, singularHandLandmark)
+            if isHandAnnotated and isOutputShowed:
+                AnnotateFrame(frame, singularHandLandmark)
 
             row.append(label)
             data.append(row)
 
-    if isPaused: 
-        display_frame = frame.copy()
-        cv2.putText(display_frame, "PAUSED (Press Space or P to resume)", (20, 40), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-        cv2.imshow('Processing Video Data', display_frame)
-    elif not isPaused:  
-        cv2.imshow('Processing Video Data', frame)
+    if isOutputShowed:
+        if isPaused: 
+            display_frame = frame.copy()
+            cv2.putText(display_frame, "PAUSED (Press Space or P to resume)", (20, 40), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            cv2.imshow('Processing Video Data', display_frame)
+        elif not isPaused:  
+            cv2.imshow('Processing Video Data', frame)
 
-    key = cv2.waitKey(30 if not isPaused else 0) & 0xFF 
+        key = cv2.waitKey(1 if not isPaused else 0) & 0xFF 
 
 
-    if key == ord(' '): 
-        isPaused = not isPaused 
+        if key == ord(' '): 
+            isPaused = not isPaused 
 
-    if key == ord('q'):
-        break
+        if key == ord('q'):
+            break
+        pass
+
     
 
 cap.release()
 cv2.destroyAllWindows()
 
+
+columns = [f"{axis}{i}" for i in range(21) for axis in ("x", "y", "z")] + ["label"] 
+df = pd.DataFrame(data, columns=columns)
+csv_file = "extracted_landmarks.csv"
+df.to_csv(csv_file, mode='a', index=False, header=not os.path.exists(csv_file)) 
+
+print(f"Extraction complete! Saved {len(data)} frame rows to '{csv_file}'.")
 
 
 
