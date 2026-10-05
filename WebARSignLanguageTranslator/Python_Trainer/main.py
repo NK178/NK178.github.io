@@ -1,27 +1,19 @@
-import tensorflow as tf 
 
 
 # Mediapipe to track hand landmarks, pandas for xyz coords and what not 
-
-
 import cv2 
 import mediapipe as mp
-# import pandas as pd 
+import tensorflow as tf 
 
 
-# mpHands = mp.tasks.vision.HandLandmarker
-# hands = mpHands.(
-#     static_image_mode=False,    
-#     max_num_hands=2,
-#     min_detection_confidence=0.5,
-#     min_tracking_confidence=0.5
-# )
 
+isPaused = False; 
 
 #initialize with new version of media pipeline, need ref to that hand_landmarker.task)  
 baseOptions = mp.tasks.BaseOptions(model_asset_path='hand_landmarker.task')
 options = mp.tasks.vision.HandLandmarkerOptions( 
     base_options=baseOptions,
+    running_mode= mp.tasks.vision.RunningMode.VIDEO,
     num_hands=2
 )   
 detector = mp.tasks.vision.HandLandmarker.create_from_options(options)  
@@ -69,38 +61,106 @@ cap = cv2.VideoCapture(videoPath)
 if not cap.isOpened():
     print(f"Error: Could not open video file {videoPath}")
     exit()
-
+frame_count = 0
 while cap.isOpened(): 
-    ret, frame = cap.read() 
 
-    if not ret: 
+
+    if not isPaused: 
+        ret, frame = cap.read() 
+        if not ret: 
+            break
+
+        frame_count += 1
+        if frame_count % 2 != 0:  # Process every 2nd frame
+            continue
+
+        frame = cv2.resize(frame, (640, 480))
+
+        rgbFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
+
+        # Wrap frame in a MediaPipe Image object (Required by Tasks API) to then do detection result
+        mpImage = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgbFrame)
+
+
+        frameTimestampMs = int(cap.get(cv2.CAP_PROP_POS_MSEC))
+        detectionResult = detector.detect_for_video(mpImage, frameTimestampMs)        
+        # detectionResult = detector.detect(mpImage) 
+
+
+        if detectionResult.hand_landmarks:  
+
+            singularHandLandmark = detectionResult.hand_landmarks[0]   
+            row = []
+            for lm in singularHandLandmark:
+                row.extend([lm.x, lm.y, lm.z])
+
+            # AnnotateFrame(frame, singularHandLandmark)
+
+            row.append(label)
+            data.append(row)
+
+    if isPaused: 
+        display_frame = frame.copy()
+        cv2.putText(display_frame, "PAUSED (Press Space or P to resume)", (20, 40), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+        cv2.imshow('Processing Video Data', display_frame)
+    elif not isPaused:  
+        cv2.imshow('Processing Video Data', frame)
+
+    key = cv2.waitKey(30 if not isPaused else 0) & 0xFF 
+
+
+    if key == ord(' '): 
+        isPaused = not isPaused 
+
+    if key == ord('q'):
         break
-
-    rgbFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
-
-    # Wrap frame in a MediaPipe Image object (Required by Tasks API) to then do detection result
-    mpImage = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgbFrame)
-    detectionResult = detector.detect(mpImage) 
-
-
-    if detectionResult.hand_landmarks:  
-
-        singularHandLandmark = detectionResult.hand_landmarks[0]   
-        row = []
-        for lm in singularHandLandmark:
-            row.extend([lm.x, lm.y, lm.z])
-
-        AnnotateFrame(frame, singularHandLandmark)
-
-        row.append(label)
-        data.append(row)
-
-    cv2.imshow('Processing Video Data', frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    
 
 cap.release()
 cv2.destroyAllWindows()
+
+
+
+
+# data = []
+# cap = cv2.VideoCapture(videoPath)
+
+# if not cap.isOpened():
+#     print(f"Error: Could not open video file {videoPath}")
+#     exit()
+
+# while cap.isOpened(): 
+#     ret, frame = cap.read() 
+
+#     if not ret: 
+#         break
+
+#     rgbFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
+
+#     # Wrap frame in a MediaPipe Image object (Required by Tasks API) to then do detection result
+#     mpImage = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgbFrame)
+#     detectionResult = detector.detect(mpImage) 
+
+
+#     if detectionResult.hand_landmarks:  
+
+#         singularHandLandmark = detectionResult.hand_landmarks[0]   
+#         row = []
+#         for lm in singularHandLandmark:
+#             row.extend([lm.x, lm.y, lm.z])
+
+#         AnnotateFrame(frame, singularHandLandmark)
+
+#         row.append(label)
+#         data.append(row)
+
+#     cv2.imshow('Processing Video Data', frame)
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+# cap.release()
+# cv2.destroyAllWindows()
 
 
 
@@ -111,50 +171,6 @@ cv2.destroyAllWindows()
 # df = pd.DataFrame(data)
 # df.to_csv('hand_landmarks.csv', index=False)
 # print("Saved to hand_landmarks.csv!")
-
-
-
-
-
-
-
-
-
-#not for training
-
-# data = []
-# cap = cv2.VideoCapture(0)
-
-# print("Press 'a', 'b', or 'c' to record landmarks for that sign. Press 'q' to quit.")
-
-# while cap.isOpened(): 
-#     ret, frame = cap.read() 
-
-
-#     rgbFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
-#     results = hands.process(rgbFrame)
-
-#     cv2.imshow('Record Data', frame) 
-#     key = cv2.waitKey(1) & 0xFF
-
-#     if key in [ord('a'), ord('b'), ord('c')] and results.multi_hand_landmarks:
-#         label = chr(key).upper()
-#         landmarks = results.multi_hand_landmarks[0].landmark
-        
-#         # Flatten 21 points (x, y, z) into a list of 63 floating-point numbers
-#         row = []
-#         for lm in landmarks:
-#             row.extend([lm.x, lm.y, lm.z])
-            
-#         row.append(label) # Add target label at the end
-#         data.append(row)
-#         print(f"Recorded sample for Sign {label} (Total: {len(data)})")
-        
-#     elif key == ord('q'):
-#         break
-
-# cap.release()
-# cv2.destroyAllWindows()
 
 
 
