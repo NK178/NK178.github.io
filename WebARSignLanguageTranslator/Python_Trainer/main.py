@@ -10,8 +10,9 @@ import os
 
 
 isPaused = False; 
-isOutputShowed = False; 
-isHandAnnotated = False; 
+isOutputShowed = True; 
+isHandAnnotated = True; 
+shouldSaveCSV = False; 
 
 
 #initialize with new version of media pipeline, need ref to that hand_landmarker.task)  
@@ -134,12 +135,16 @@ cap.release()
 cv2.destroyAllWindows()
 
 
-columns = [f"{axis}{i}" for i in range(21) for axis in ("x", "y", "z")] + ["label"] 
-df = pd.DataFrame(data, columns=columns)
-csv_file = "extracted_landmarks.csv"
-df.to_csv(csv_file, mode='a', index=False, header=not os.path.exists(csv_file)) 
+if (shouldSaveCSV):
+    columns = [f"{axis}{i}" for i in range(21) for axis in ("x", "y", "z")] + ["label"] 
+    df = pd.DataFrame(data, columns=columns)
+    csv_file = "extracted_landmarks.csv"
+    df.to_csv(csv_file, mode='a', index=False, header=not os.path.exists(csv_file)) 
 
-print(f"Extraction complete! Saved {len(data)} frame rows to '{csv_file}'.")
+    print(f"Extraction complete! Saved {len(data)} frame rows to '{csv_file}'.")
+    pass
+
+
 
 
 
