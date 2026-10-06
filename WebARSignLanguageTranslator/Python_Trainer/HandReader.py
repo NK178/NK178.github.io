@@ -10,9 +10,9 @@ import os
 
 
 isPaused = False; 
-isOutputShowed = True; 
-isHandAnnotated = True; 
-shouldSaveCSV = False; 
+isOutputShowed = False; 
+isHandAnnotated = False; 
+shouldSaveCSV = True; 
 
 
 #initialize with new version of media pipeline, need ref to that hand_landmarker.task)  
@@ -29,7 +29,10 @@ options = mp.tasks.vision.HandLandmarkerOptions(
 detector = mp.tasks.vision.HandLandmarker.create_from_options(options)  
 
 videoPath = "HandTrackTest_Scissors.mp4"
-label = "A"
+# label = "A"
+
+hardCodedLabelIndex = 2; 
+hardCodedLabels = ["R", "P", "S"]
 
 
 #open cv set up for display 
@@ -107,7 +110,11 @@ while cap.isOpened():
             if isHandAnnotated and isOutputShowed:
                 AnnotateFrame(frame, singularHandLandmark)
 
-            row.append(label)
+
+
+            #for testing purposes, i will hard code the sign lanugage labels 
+
+            row.append(hardCodedLabels[hardCodedLabelIndex])
             data.append(row)
 
     if isOutputShowed:
@@ -133,6 +140,8 @@ while cap.isOpened():
 
 cap.release()
 cv2.destroyAllWindows()
+
+
 
 
 if (shouldSaveCSV):
