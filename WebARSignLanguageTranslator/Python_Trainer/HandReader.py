@@ -28,8 +28,19 @@ options = mp.tasks.vision.HandLandmarkerOptions(
 )   
 detector = mp.tasks.vision.HandLandmarker.create_from_options(options)  
 
-videoPath = "HandTrackTest_Scissors.mp4"
+# videoPath = "HandTrackTest_Scissors.mp4"
 # label = "A"
+
+
+
+
+
+# videoPath = "HandTrack_R.mp4"
+# videoPath = "HandTrack_P.mp4"
+videoPath = "HandTrack_S.mp4"
+
+
+filePath = f"Training_Videos/{videoPath}"
 
 hardCodedLabelIndex = 2; 
 hardCodedLabels = ["R", "P", "S"]
@@ -48,7 +59,7 @@ HAND_CONNECTIONS = [
 
 
 def AnnotateFrame(frame, hand_landmarks):
-
+    
     h, w, c = frame.shape 
     # Convert all 21 normalized landmarks to pixel (x, y) tuples
     pixel_points = []
@@ -69,10 +80,10 @@ def AnnotateFrame(frame, hand_landmarks):
 
 
 data = []
-cap = cv2.VideoCapture(videoPath)
+cap = cv2.VideoCapture(filePath)
 
 if not cap.isOpened():
-    print(f"Error: Could not open video file {videoPath}")
+    print(f"Error: Could not open video file {filePath}")
     exit()
 # frame_count = 0
 while cap.isOpened(): 
@@ -152,59 +163,6 @@ if (shouldSaveCSV):
 
     print(f"Extraction complete! Saved {len(data)} frame rows to '{csv_file}'.")
     pass
-
-
-
-
-
-# data = []
-# cap = cv2.VideoCapture(videoPath)
-
-# if not cap.isOpened():
-#     print(f"Error: Could not open video file {videoPath}")
-#     exit()
-
-# while cap.isOpened(): 
-#     ret, frame = cap.read() 
-
-#     if not ret: 
-#         break
-
-#     rgbFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
-
-#     # Wrap frame in a MediaPipe Image object (Required by Tasks API) to then do detection result
-#     mpImage = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgbFrame)
-#     detectionResult = detector.detect(mpImage) 
-
-
-#     if detectionResult.hand_landmarks:  
-
-#         singularHandLandmark = detectionResult.hand_landmarks[0]   
-#         row = []
-#         for lm in singularHandLandmark:
-#             row.extend([lm.x, lm.y, lm.z])
-
-#         AnnotateFrame(frame, singularHandLandmark)
-
-#         row.append(label)
-#         data.append(row)
-
-#     cv2.imshow('Processing Video Data', frame)
-#     if cv2.waitKey(1) & 0xFF == ord('q'):
-#         break
-
-# cap.release()
-# cv2.destroyAllWindows()
-
-
-
-
-
-
-# # Save recorded data to CSV
-# df = pd.DataFrame(data)
-# df.to_csv('hand_landmarks.csv', index=False)
-# print("Saved to hand_landmarks.csv!")
 
 
 
