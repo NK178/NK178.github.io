@@ -46,7 +46,7 @@ hardCodedLabelIndex = 2;
 hardCodedLabels = ["R", "P", "S"]
 
 
-#open cv set up for display 
+#open cv set up for display     
 HAND_CONNECTIONS = [
     (0, 1), (1, 2), (2, 3), (3, 4),        # Thumb
     (0, 5), (5, 6), (6, 7), (7, 8),        # Index
